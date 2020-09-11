@@ -1,0 +1,33 @@
+﻿  Shader.cpp
+  Texture.cpp
+  Main.cpp
+  Vector4D.cpp
+  stb_image.cpp
+  Generating Code...
+Shader.obj : error LNK2001: unresolved external symbol __glewCompileShader
+Shader.obj : error LNK2001: unresolved external symbol __glewCreateShader
+Shader.obj : error LNK2001: unresolved external symbol __glewShaderSource
+Texture.obj : error LNK2001: unresolved external symbol __glewGenerateMipmap
+Main.obj : error LNK2019: unresolved external symbol glewInit referenced in function main
+Main.obj : error LNK2019: unresolved external symbol glfwInit referenced in function main
+Main.obj : error LNK2019: unresolved external symbol glfwTerminate referenced in function main
+Main.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function main
+Main.obj : error LNK2019: unresolved external symbol glfwWindowShouldClose referenced in function main
+Main.obj : error LNK2019: unresolved external symbol glfwPollEvents referenced in function main
+Main.obj : error LNK2019: unresolved external symbol glfwMakeContextCurrent referenced in function main
+Main.obj : error LNK2019: unresolved external symbol glfwSwapBuffers referenced in function main
+Main.obj : error LNK2001: unresolved external symbol __glewBindBuffer
+Main.obj : error LNK2001: unresolved external symbol __glewBufferData
+Main.obj : error LNK2001: unresolved external symbol __glewGenBuffers
+Main.obj : error LNK2001: unresolved external symbol __glewAttachShader
+Main.obj : error LNK2001: unresolved external symbol __glewCreateProgram
+Main.obj : error LNK2001: unresolved external symbol __glewDeleteShader
+Main.obj : error LNK2001: unresolved external symbol __glewEnableVertexAttribArray
+Main.obj : error LNK2001: unresolved external symbol __glewLinkProgram
+Main.obj : error LNK2001: unresolved external symbol __glewUseProgram
+Main.obj : error LNK2001: unresolved external symbol __glewVertexAttribPointer
+Main.obj : error LNK2001: unresolved external symbol __glewBindVertexArray
+Main.obj : error LNK2001: unresolved external symbol __glewGenVertexArrays
+C:\Code\OpenGL3D\Dependencies\GLEW\lib\Release\Win32\glew32s.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Code\OpenGL3D\Dependencies\GLFW\lib-vc2019\glfw3.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Code\OpenGL3D\x64\Debug\OpenGL3D.exe : fatal error LNK1120: 24 unresolved externals
