@@ -1,2 +1,2 @@
 # Oxcart
-Game Engine in OpenGL C++ made by Jack Henrikson.
+Oxcart is a graphics engine made by Jack Henrikson in OpenGL.
