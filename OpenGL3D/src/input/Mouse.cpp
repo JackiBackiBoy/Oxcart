@@ -13,9 +13,9 @@ Mouse::~Mouse()
 
 }
 
-glm::vec2 Mouse::GetPosition(GLFWwindow* aWindow)
+Vector2D Mouse::GetPosition(GLFWwindow* aWindow)
 {
 	glfwGetCursorPos(aWindow, &myPositionX, &myPositionY);
 
-	return { myPositionX, myPositionY };
+	return { (float)myPositionX, (float)myPositionY };
 }

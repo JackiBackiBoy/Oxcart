@@ -1,7 +1,7 @@
 #ifndef MOUSE_HEADER
 #define MOUSE_HEADER
 
-#include "vendor/glm/glm.hpp"
+#include "math/Vector2D.h"
 #include "GLFW/glfw3.h"
 
 class Mouse
@@ -9,7 +9,7 @@ class Mouse
 public:
 	~Mouse();
 
-	static glm::vec2 GetPosition(GLFWwindow* aWindow);
+	static Vector2D GetPosition(GLFWwindow* aWindow);
 
 private:
 	Mouse();

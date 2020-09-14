@@ -12,12 +12,19 @@ struct Vector3D
 	float y;
 	float z;
 
-	inline static Vector3D Forward() { return { 0, 0, -1 }; }
+	static const Vector3D Up;
+	static const Vector3D Forward;
 
 	// Operator overloads
 	inline Vector3D operator+(const Vector3D& aVector) const { return { x + aVector.x, y + aVector.y, z + aVector.z }; }
+
+	inline Vector3D& operator+=(const Vector3D& aVector) { x -= aVector.x; y -= aVector.y; z -= aVector.z; return *this; }
+	inline Vector3D& operator-=(const Vector3D& aVector) { x -= aVector.x; y -= aVector.y; z -= aVector.z; return *this; }
+
 	inline Vector3D operator-(const Vector3D& aVector) const { return { x - aVector.x, y - aVector.y, z - aVector.z }; }
+
 	inline Vector3D operator*(const Vector3D& aVector) const { return { x * aVector.x, y * aVector.y, z * aVector.z }; }
+	inline Vector3D operator*(const float& aFloat) const { return { x * aFloat, y * aFloat, z * aFloat }; }
 
 	// Vector functions
 	inline static Vector3D Normalize(const Vector3D& aVector)
@@ -25,6 +32,6 @@ struct Vector3D
 		float tempLength = std::sqrt(aVector.x * aVector.x + aVector.y * aVector.y + aVector.z * aVector.z);
 		return { aVector.x / tempLength, aVector.y / tempLength, aVector.z / tempLength };
 	}
-	static Vector3D Cross(const Vector3D& aVector1, const Vector3D& aVector2);
+	static Vector3D CrossProduct(const Vector3D& aVector1, const Vector3D& aVector2);
 };
 #endif

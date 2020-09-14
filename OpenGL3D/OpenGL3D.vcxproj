@@ -161,6 +161,7 @@
     <ClCompile Include="src\input\Mouse.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\math\Math.cpp" />
+    <ClCompile Include="src\math\Matrix4x4.cpp" />
     <ClCompile Include="src\math\Vector2D.cpp" />
     <ClCompile Include="src\math\Vector3D.cpp" />
     <ClCompile Include="src\math\Vector4D.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\input\KeyCode.h" />
     <ClInclude Include="src\input\Mouse.h" />
     <ClInclude Include="src\math\Math.h" />
+    <ClInclude Include="src\math\Matrix4x4.h" />
     <ClInclude Include="src\math\Vector2D.h" />
     <ClInclude Include="src\math\Vector3D.h" />
     <ClInclude Include="src\math\Vector4D.h" />

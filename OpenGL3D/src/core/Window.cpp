@@ -36,15 +36,15 @@ void Window::Run()
 
 	float tempLastTime = 0.0f;
 
+	glEnable(GL_DEPTH_TEST);
+	glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	// OnStart (called once at the start of the program)
 	OnStart();
 	Window::OnStart();
 
 	while (!glfwWindowShouldClose(myRawWindow))
 	{
-		glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		float tempCurrentTime = glfwGetTime();
 		float tempDeltaTime = tempCurrentTime - tempLastTime;
 		float tempLastTime = tempCurrentTime;
@@ -52,6 +52,9 @@ void Window::Run()
 		// OnUpdate (called every frame)
 		OnUpdate(tempDeltaTime);
 		Window::OnRender(tempDeltaTime);
+
+		glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// OnRenderer (called every frame)
 		OnRender(tempDeltaTime);

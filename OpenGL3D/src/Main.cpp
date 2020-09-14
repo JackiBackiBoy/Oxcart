@@ -36,10 +36,10 @@ extern Window* BuildWindow();
 
 int main(void)
 {
-	//Window* tempWindow = BuildWindow();
-	//tempWindow->Run();
-	//delete tempWindow;
-	//return 0;
+	Window* tempWindow = BuildWindow();
+	tempWindow->Run();
+	delete tempWindow;
+	return 0;
 
 	GLFWwindow* window;
 
@@ -218,11 +218,11 @@ int main(void)
 			myCameraPosition.y -= 2.0f * tempDeltaTime;
 		}
 
-		glm::vec2 tempCurrentMousePosition = Mouse::GetPosition(window);
+		Vector2D tempCurrentMousePosition = Mouse::GetPosition(window);
 
 		float tempDeltaMouseX = tempCurrentMousePosition.x - myLastMousePosition.x;
 		float tempDeltaMouseY = myLastMousePosition.y - tempCurrentMousePosition.y;
-		myLastMousePosition = tempCurrentMousePosition;
+		//myLastMousePosition = tempCurrentMousePosition;
 
 		myYaw += tempDeltaMouseX * 0.1f;
 		myPitch += tempDeltaMouseY * 0.1f;

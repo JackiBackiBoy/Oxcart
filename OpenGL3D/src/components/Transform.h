@@ -11,7 +11,7 @@ public:
 
 	inline Vector3D& Position() { return myPosition; }
 	inline Vector3D& Rotation() { return myRotation; }
-	inline Vector3D GetForward() const { return myRotation * Vector3D::Forward(); }
+	inline Vector3D GetForward() const { return myRotation * Vector3D::Forward; }
 	//inline void SetForward(const Vector3D& aForward) { myRotation = LookAt(aForward); }
 
 	// Functions

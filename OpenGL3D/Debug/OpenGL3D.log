@@ -1,80 +1,68 @@
 ﻿  Sandbox.cpp
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(23,1): error C2653: 'Keyboard': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(23,1): error C2653: 'KeyCode': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(23,36): error C2065: 'W': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(23,39): error C2065: 'window': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(23,17): error C3861: 'IsKeyDown': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(25,4): error C2065: 'myCameraPosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(25,31): error C2065: 'tempDeltaTime': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(25,47): error C2065: 'myCameraFront': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(28,1): error C2653: 'Keyboard': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(28,1): error C2653: 'KeyCode': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(28,36): error C2065: 'S': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(28,39): error C2065: 'window': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(28,17): error C3861: 'IsKeyDown': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(30,4): error C2065: 'myCameraPosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(30,31): error C2065: 'tempDeltaTime': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(30,47): error C2065: 'myCameraFront': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(34,1): error C2653: 'Keyboard': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(34,1): error C2653: 'KeyCode': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(34,36): error C2065: 'A': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(34,39): error C2065: 'window': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(34,17): error C3861: 'IsKeyDown': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(36,4): error C2065: 'myCameraPosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(36,1): error C2653: 'glm': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(36,50): error C2065: 'myCameraFront': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(36,65): error C2065: 'myCameraUp': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(36,44): error C3861: 'cross': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(36,29): error C3861: 'normalize': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(36,87): error C2065: 'tempDeltaTime': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(39,1): error C2653: 'Keyboard': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(39,1): error C2653: 'KeyCode': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(39,36): error C2065: 'D': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(39,39): error C2065: 'window': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(39,17): error C3861: 'IsKeyDown': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(41,4): error C2065: 'myCameraPosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(41,1): error C2653: 'glm': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(41,50): error C2065: 'myCameraFront': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(41,65): error C2065: 'myCameraUp': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(41,44): error C3861: 'cross': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(41,29): error C3861: 'normalize': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(41,87): error C2065: 'tempDeltaTime': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(45,1): error C2653: 'Keyboard': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(45,1): error C2653: 'KeyCode': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(45,36): error C2065: 'Space': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(45,43): error C2065: 'window': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(45,17): error C3861: 'IsKeyDown': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(47,4): error C2065: 'myCameraPosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(47,33): error C2065: 'tempDeltaTime': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(50,1): error C2653: 'Keyboard': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(50,1): error C2653: 'KeyCode': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(50,36): error C2065: 'LeftControl': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(50,49): error C2065: 'window': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(50,17): error C3861: 'IsKeyDown': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(52,4): error C2065: 'myCameraPosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(52,33): error C2065: 'tempDeltaTime': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(55,1): error C2653: 'glm': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(55,8): error C2065: 'vec2': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(55,13): error C2146: syntax error: missing ';' before identifier 'tempCurrentMousePosition'
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(55,13): error C2065: 'tempCurrentMousePosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(55,1): error C2653: 'Mouse': is not a class or namespace name
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(55,59): error C2065: 'window': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(55,47): error C3861: 'GetPosition': identifier not found
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(57,27): error C2065: 'tempCurrentMousePosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(57,56): error C2065: 'myLastMousePosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(58,27): error C2065: 'myLastMousePosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(58,51): error C2065: 'tempCurrentMousePosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(59,3): error C2065: 'myLastMousePosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(59,25): error C2065: 'tempCurrentMousePosition': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(61,3): error C2065: 'myYaw': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(62,3): error C2065: 'myPitch': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(64,7): error C2065: 'myPitch': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(66,4): error C2065: 'myPitch': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(68,7): error C2065: 'myPitch': undeclared identifier
-C:\Code\OpenGL3D\OpenGL3D\src\Sandbox.cpp(70,4): error C2065: 'myPitch': undeclared identifier
-  Camera.cpp
-  Math.cpp
-  Vector2D.cpp
-C:\Code\OpenGL3D\OpenGL3D\src\math\Vector2D.h(14,35): error C2440: 'return': cannot convert from 'initializer list' to 'Vector2D'
-C:\Code\OpenGL3D\OpenGL3D\src\math\Vector2D.h(14,35): message : No constructor could take the source type, or constructor overload resolution was ambiguous
-  Generating Code...
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(197,32): error C2039: 'Rotate': is not a member of 'Matrix4x4'
+C:\Development\OpenGL3D\OpenGL3D\src\math\Matrix4x4.h(7): message : see declaration of 'Matrix4x4'
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(197,1): error C3861: 'Rotate': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(198,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(198,61): error C3861: 'vec3': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(198,26): error C3861: 'rotate': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(201,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(201,8): error C2065: 'mat4': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(201,13): error C2146: syntax error: missing ';' before identifier 'tempViewMatrix'
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(201,13): error C2065: 'tempViewMatrix': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(202,3): error C2065: 'tempViewMatrix': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(202,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(202,107): error C2065: 'myCameraFront': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(202,122): error C2065: 'myCameraUp': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(202,25): error C3861: 'lookAt': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(205,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(205,8): error C2065: 'mat4': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(205,13): error C2146: syntax error: missing ';' before identifier 'tempProjectionMatrix'
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(205,13): error C2065: 'tempProjectionMatrix': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(206,3): error C2065: 'tempProjectionMatrix': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(206,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(206,67): error C2065: 'myAspectRatio': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(206,31): error C3861: 'perspective': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(208,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(208,103): error C3861: 'value_ptr': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(209,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(209,112): error C2065: 'tempViewMatrix': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(209,102): error C3861: 'value_ptr': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(210,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(210,118): error C2065: 'tempProjectionMatrix': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(210,108): error C3861: 'value_ptr': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(212,21): error C2065: 'myVAO': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(217,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(217,9): error C2065: 'mat4': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(217,14): error C2146: syntax error: missing ';' before identifier 'model'
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(217,14): error C2065: 'model': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(217,27): error C3861: 'mat4': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(218,4): error C2065: 'model': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(218,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(218,27): error C2065: 'model': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(218,34): error C2065: 'cubePositions': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(218,17): error C3861: 'translate': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(220,4): error C2065: 'model': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(220,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(220,24): error C2065: 'model': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(220,60): error C3861: 'vec3': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(220,17): error C3861: 'rotate': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(221,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(221,114): error C2065: 'model': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(221,104): error C3861: 'value_ptr': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(228,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(228,119): error C2065: 'tempProjectionMatrix': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(228,109): error C3861: 'value_ptr': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(229,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(229,113): error C2065: 'tempViewMatrix': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(229,103): error C3861: 'value_ptr': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(230,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(230,26): error C3861: 'mat4': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(231,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(231,53): error C2065: 'myLightPosition': undeclared identifier
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(231,26): error C3861: 'translate': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(232,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(232,54): error C3861: 'vec3': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(232,26): error C3861: 'scale': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(233,1): error C2653: 'glm': is not a class or namespace name
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(233,104): error C3861: 'value_ptr': identifier not found
+C:\Development\OpenGL3D\OpenGL3D\src\Sandbox.cpp(235,21): error C2065: 'myLightVAO': undeclared identifier

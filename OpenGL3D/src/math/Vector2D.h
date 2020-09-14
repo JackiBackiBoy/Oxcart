@@ -11,8 +11,6 @@ struct Vector2D
 	float x;
 	float y;
 
-	inline static Vector2D Forward() { return { 0, 0, -1 }; }
-
 	// Operator overloads
 	inline Vector2D operator+(const Vector2D& aVector) const { return { x + aVector.x, y + aVector.y }; }
 	inline Vector2D operator-(const Vector2D& aVector) const { return { x - aVector.x, y - aVector.y }; }
