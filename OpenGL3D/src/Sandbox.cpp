@@ -10,6 +10,12 @@
 #include "graphics/Shader.h"
 #include "graphics/Texture.h"
 
+#include "vendor/glm/glm.hpp"
+#include "vendor/glm/gtc/matrix_transform.hpp"
+#include "vendor/glm/gtc/type_ptr.hpp"
+
+#include <iostream>
+
 class Sandbox : public Window
 {
 public: 
@@ -18,9 +24,9 @@ public:
 
 	void OnStart() override
 	{
-		myCamera = new Camera();
-		myCamera->GetTransform().Position() = { 0.0f, 0.0f, 3.0f };
-		myCamera->GetTransform().Rotation() = { 0.0f, 0.0f, -1.0f };
+		//myCamera = new Camera();
+		//myCamera->GetTransform().Position() = { 0.0f, 0.0f, 3.0f };
+		//myCamera->GetTransform().Rotation() = { 0.0f, 0.0f, -1.0f };
 
 		myLightingShader = new Shader("res/shaders/LightingShader.glsl");
 		myLightCubeShader = new Shader("res/shaders/LightCubeShader.glsl");
@@ -74,20 +80,6 @@ public:
 			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 		};
 
-		Vector3D cubePositions[] =
-		{
-			Vector3D(0.0f,  0.0f,  0.0f),
-			Vector3D(2.0f,  5.0f, -15.0f),
-			Vector3D(-1.5f, -2.2f, -2.5f),
-			Vector3D(-3.8f, -2.0f, -12.3f),
-			Vector3D(2.4f, -0.4f, -3.5f),
-			Vector3D(-1.7f,  3.0f, -7.5f),
-			Vector3D(1.3f, -2.0f, -2.5f),
-			Vector3D(1.5f,  2.0f, -2.5f),
-			Vector3D(1.5f,  0.2f, -1.5f),
-			Vector3D(-1.3f,  1.0f, -1.5f)
-		};
-
 		Vector3D pointLightPositions[] =
 		{
 			Vector3D(0.7f,  0.2f,  2.0f),
@@ -95,6 +87,43 @@ public:
 			Vector3D(-4.0f,  2.0f, -12.0f),
 			Vector3D(0.0f,  0.0f, -3.0f)
 		};
+
+		unsigned int tempIndices[] = { 0, 1, 2, 0, 2, 3/*,
+								   4, 5, 6, 4, 6, 7*/ };
+
+								   // Vertex Buffer Object (VBO)
+		unsigned int myVBO; // VBO
+		glGenBuffers(1, &myVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, myVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(tempVertices), tempVertices, GL_STATIC_DRAW);
+
+		// Vertex Array Object (VAO)
+		myVAO;
+		glGenVertexArrays(1, &myVAO);
+		glBindVertexArray(myVAO);
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
+		glEnableVertexAttribArray(0);
+
+		// Normal
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+
+		// Texture coords
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(2);
+
+		myLightVAO;
+		glGenVertexArrays(1, &myLightVAO);
+		glBindVertexArray(myLightVAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, myVBO);
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
+		glEnableVertexAttribArray(0);
+
+		glEnable(GL_DEPTH_TEST);
+		glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 
 	void OnUpdate(float aDeltaTime) override
@@ -102,34 +131,34 @@ public:
 		// Forward
 		if (Keyboard::IsKeyDown(KeyCode::W, myRawWindow))
 		{
-			myCamera->GetTransform().Position() += myCamera->GetTransform().GetForward() * 2.0f * aDeltaTime;
+			myCameraPosition += myCameraFront * 2.0f * aDeltaTime;
 		}
 		// Backward
 		if (Keyboard::IsKeyDown(KeyCode::S, myRawWindow))
 		{
-			myCamera->GetTransform().Position() -= myCamera->GetTransform().GetForward() * 2.0f * aDeltaTime;
+			myCameraPosition -= myCameraFront * 2.0f * aDeltaTime;
 		}
 
 		// Left
 		if (Keyboard::IsKeyDown(KeyCode::A, myRawWindow))
 		{
-			myCamera->GetTransform().Position() -= Vector3D::Normalize(Vector3D::CrossProduct(myCamera->GetTransform().GetForward(), Vector3D::Up)) * 2.0f * aDeltaTime;
+			myCameraPosition -= Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, Vector3D::Up)) * 2.0f * aDeltaTime;
 		}
 		// Right
 		if (Keyboard::IsKeyDown(KeyCode::D, myRawWindow))
 		{
-			myCamera->GetTransform().Position() += Vector3D::Normalize(Vector3D::CrossProduct(myCamera->GetTransform().GetForward(), Vector3D::Up)) * 2.0f * aDeltaTime;
+			myCameraPosition += Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, Vector3D::Up)) * 2.0f * aDeltaTime;
 		}
 
 		// Up
 		if (Keyboard::IsKeyDown(KeyCode::Space, myRawWindow))
 		{
-			myCamera->GetTransform().Position().y += 2.0f * aDeltaTime;
+			myCameraPosition.y += 2.0f * aDeltaTime;
 		}
 		// Down
 		if (Keyboard::IsKeyDown(KeyCode::LeftControl, myRawWindow))
 		{
-			myCamera->GetTransform().Position().y -= 2.0f * aDeltaTime;
+			myCameraPosition.y -= 2.0f * aDeltaTime;
 		}
 
 		Vector2D tempCurrentMousePosition = Mouse::GetPosition(myRawWindow);
@@ -138,36 +167,37 @@ public:
 		float tempDeltaMouseY = myLastMousePosition.y - tempCurrentMousePosition.y;
 		myLastMousePosition = tempCurrentMousePosition;
 
-		myCamera->Yaw() += tempDeltaMouseX * 0.1f;
-		myCamera->Pitch() += tempDeltaMouseY * 0.1f;
+		myYaw += tempDeltaMouseX * 0.1f;
+		myPitch += tempDeltaMouseY * 0.1f;
 
-		if (myCamera->Pitch() > 89.0f)
+		if (myPitch > 89.0f)
 		{
-			myCamera->Pitch() = 89.0f;
+			myPitch = 89.0f;
 		}
-		if (myCamera->Pitch() < -89.0f)
+		if (myPitch < -89.0f)
 		{
-			myCamera->Pitch() = -89.0f;
+			myPitch= -89.0f;
 		}
 
 		Vector3D tempDirection;
-		tempDirection.x = cos(Math::ToRadians(myCamera->Yaw())) * cos(Math::ToRadians(myCamera->Pitch()));
-		tempDirection.y = sin(Math::ToRadians(myCamera->Pitch()));
-		tempDirection.z = sin(Math::ToRadians(myCamera->Yaw())) * cos(Math::ToRadians(myCamera->Pitch()));
-		myCamera->GetTransform().Rotation() = Vector3D::Normalize(tempDirection);
+		tempDirection.x = cos(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
+		tempDirection.y = sin(Math::ToRadians(myPitch));
+		tempDirection.z = sin(Math::ToRadians(myPitch)) * cos(Math::ToRadians(myPitch));
+		//myCamera->GetTransform().Rotation() = Vector3D::Normalize(tempDirection);
+		myCameraFront = Vector3D::Normalize(tempDirection);
 	}
 
 	void OnRender(float aDeltaTime) override
 	{
 		glUseProgram(myLightingShader->GetID());
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "light.position"), myCamera->GetTransform().Position().x, myCamera->GetTransform().Position().y, myCamera->GetTransform().Position().z);
+		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "light.position"), myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
 		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "directionalLight.direction"), -1.0f, -0.23f, -0.9f);
 		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "light.cutOff"), cos(Math::ToRadians(12.5f)));
 		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "light.outerCutOff"), cos(Math::ToRadians(17.5f)));
 
 		// Spotlight
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.position"), myCamera->GetTransform().Position().x, myCamera->GetTransform().Position().y, myCamera->GetTransform().Position().z);
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.direction"), myCamera->GetTransform().GetForward().x, myCamera->GetTransform().GetForward().y, myCamera->GetTransform().GetForward().z);
+		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.position"), myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
+		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.direction"), myCameraFront.x, myCameraFront.y, myCameraFront.z);
 		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.cutOff"), cos(Math::ToRadians(12.5f)));
 		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.outerCutOff"), cos(Math::ToRadians(17.5f)));
 		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.ambient"), 0.1f, 0.1f, 0.1f);
@@ -177,7 +207,7 @@ public:
 		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.linearTerm"), 0.09f);
 		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.quadraticTerm"), 0.032f);
 
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "ViewPosition"), myCamera->GetTransform().Position().x, myCamera->GetTransform().Position().y, myCamera->GetTransform().Position().z);
+		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "ViewPosition"), myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
 
 		myWoodBoxTexture->Bind(0);
 		myWoodBoxSpecularMap->Bind(1);
@@ -193,44 +223,44 @@ public:
 		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "light.quadraticTerm"), 0.032f);
 
 		// Model Matrix
-		Matrix4x4 tempModelMatrix = Matrix4x4(1.0f);
+		Matrix4x4 tempModelMatrix = Matrix4x4::Identity();
 		tempModelMatrix = Matrix4x4::Rotate(tempModelMatrix, 0.0f, { 1.0f, 1.0f, 1.0f });
-		tempModelMatrix = glm::rotate(tempModelMatrix, 0.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		// View Matrix
-		glm::mat4 tempViewMatrix;
-		tempViewMatrix = glm::lookAt(myCamera->GetTransform().Position(), myCamera->GetTransform().Position() + myCameraFront, myCameraUp);
+		Matrix4x4 tempViewMatrix;
+		tempViewMatrix = Matrix4x4::LookAt(myCameraPosition, myCameraPosition + myCameraFront, myCameraUp);
 
 		// Projection Matrix
-		glm::mat4 tempProjectionMatrix;
-		tempProjectionMatrix = glm::perspective(Math::ToRadians(45.0f), myAspectRatio, 0.1f, 100.0f);
+		Matrix4x4 tempProjectionMatrix;
+		myAspectRatio;
+		tempProjectionMatrix = Matrix4x4::Perspective(Math::ToRadians(45.0f), myAspectRatio, 0.1f, 100.0f);
 
-		glUniformMatrix4fv(glGetUniformLocation(myLightingShader.GetID(), "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(tempModelMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(myLightingShader.GetID(), "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(tempViewMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(myLightingShader.GetID(), "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(tempProjectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ModelMatrix"), 1, GL_FALSE, tempModelMatrix.GetValuePtr());
+		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ViewMatrix"), 1, GL_FALSE, tempViewMatrix.GetValuePtr());
+		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ProjectionMatrix"), 1, GL_FALSE, tempProjectionMatrix.GetValuePtr());
 
 		glBindVertexArray(myVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		for (size_t i = 0; i < 10; i++)
 		{
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, cubePositions[i]);
+			Matrix4x4 model = Matrix4x4::Identity();
+			model = Matrix4x4::Translate(model, cubePositions[i]);
 			float angle = 20.0f * i;
-			model = glm::rotate(model, Math::ToRadians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			glUniformMatrix4fv(glGetUniformLocation(myLightingShader.GetID(), "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(model));
+			model = Matrix4x4::Rotate(model, Math::ToRadians(angle), { 1.0f, 0.3f, 0.5f });
+			glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ModelMatrix"), 1, GL_FALSE, model.GetValuePtr());
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 
 		// Draw the scene light
-		glUseProgram(myLightCubeShader.GetID());
-		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader.GetID(), "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(tempProjectionMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader.GetID(), "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(tempViewMatrix));
-		tempModelMatrix = glm::mat4(1.0f);
-		tempModelMatrix = glm::translate(tempModelMatrix, myLightPosition);
-		tempModelMatrix = glm::scale(tempModelMatrix, glm::vec3(0.2f));
-		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader.GetID(), "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(tempModelMatrix));
+		glUseProgram(myLightCubeShader->GetID());
+		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader->GetID(), "ProjectionMatrix"), 1, GL_FALSE, tempProjectionMatrix.GetValuePtr());
+		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader->GetID(), "ViewMatrix"), 1, GL_FALSE, tempViewMatrix.GetValuePtr());
+		tempModelMatrix = Matrix4x4::Identity();
+		tempModelMatrix = Matrix4x4::Translate(tempModelMatrix, myLightPosition);
+		tempModelMatrix = Matrix4x4::Scale(tempModelMatrix, { 0.2f, 0.2f, 0.2f });
+		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader->GetID(), "ModelMatrix"), 1, GL_FALSE, tempModelMatrix.GetValuePtr());
 
 		glBindVertexArray(myLightVAO);
 
@@ -243,11 +273,42 @@ public:
 	}
 
 private:
-	Camera* myCamera;
+	//Camera* myCamera;
 	Vector2D myLastMousePosition;
+
+	Vector3D myCameraPosition = { 0.0f, 0.0f, 3.0f };
+	Vector3D myCameraUp = { 0.0f, 1.0f, 0.0f };
+	Vector3D myCameraFront = { 0.0f, 0.0f, -1.0f };
+
+	Vector3D cubePositions[10] =
+	{
+		Vector3D(0.0f,  0.0f,  0.0f),
+		Vector3D(2.0f,  5.0f, -15.0f),
+		Vector3D(-1.5f, -2.2f, -2.5f),
+		Vector3D(-3.8f, -2.0f, -12.3f),
+		Vector3D(2.4f, -0.4f, -3.5f),
+		Vector3D(-1.7f,  3.0f, -7.5f),
+		Vector3D(1.3f, -2.0f, -2.5f),
+		Vector3D(1.5f,  2.0f, -2.5f),
+		Vector3D(1.5f,  0.2f, -1.5f),
+		Vector3D(-1.3f,  1.0f, -1.5f)
+	};
+
+	unsigned int myVAO;
+	unsigned int myLightVAO;
+
+	int myScreenWidth = 1920;
+	int myScreenHeight = 1080;
+	float myAspectRatio = (float)myScreenWidth / myScreenHeight;
+
+	float myPitch;
+	float myYaw = -90.0f;
+	float myRoll;
 
 	Shader* myLightingShader;
 	Shader* myLightCubeShader;
+
+	Vector3D myLightPosition = { 1.2f, 1.0f, 2.0f };
 
 	Texture* myWoodBoxTexture;
 	Texture* myWoodBoxSpecularMap;

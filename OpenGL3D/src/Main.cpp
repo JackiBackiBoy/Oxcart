@@ -21,9 +21,9 @@ glm::vec3 myCameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 
 // Light
 glm::vec3 myLightPosition = glm::vec3(1.2f, 1.0f, 2.0f);
-glm::vec2 myLastMousePosition;
+Vector2D myLastMousePosition;
 
-glm::mat4 myViewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+glm::mat4 myViewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f),glm::vec3(0.0f, 1.0f, 0.0f));
 
 float tempDeltaTime = 0.0f;
 float lastFrameTime = 0.0f;
@@ -222,7 +222,7 @@ int main(void)
 
 		float tempDeltaMouseX = tempCurrentMousePosition.x - myLastMousePosition.x;
 		float tempDeltaMouseY = myLastMousePosition.y - tempCurrentMousePosition.y;
-		//myLastMousePosition = tempCurrentMousePosition;
+		myLastMousePosition = tempCurrentMousePosition;
 
 		myYaw += tempDeltaMouseX * 0.1f;
 		myPitch += tempDeltaMouseY * 0.1f;
