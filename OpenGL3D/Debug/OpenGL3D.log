@@ -1,10 +1,5 @@
-﻿  Main.cpp
-C:\Development\OpenGL3D\OpenGL3D\src\Main.cpp(184,30): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Sandbox.cpp
-  Camera.cpp
-  Transform.cpp
-  Matrix4x4.cpp
-  Vector3D.cpp
-  glm.cpp
+﻿  Model.cpp
+C:\Code\Oxcart\OpenGL3D\src\math\Triangle.h(8,10): error C2075: 'Triangle::vertices': array initialization requires a brace-enclosed initializer list
+  Triangle.cpp
+C:\Code\Oxcart\OpenGL3D\src\math\Triangle.h(8,10): error C2075: 'Triangle::vertices': array initialization requires a brace-enclosed initializer list
   Generating Code...
-  OpenGL3D.vcxproj -> C:\Development\OpenGL3D\Debug\OpenGL3D.exe

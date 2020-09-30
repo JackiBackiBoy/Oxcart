@@ -14,8 +14,8 @@ public:
 	void Run();
 
 	virtual void OnStart() = 0;
-	virtual void OnUpdate(float aDeltaTime) = 0;
-	virtual void OnRender(float aDeltaTime) = 0;
+	virtual void OnUpdate(const float& aDeltaTime) = 0;
+	virtual void OnRender(const float& aDeltaTime) = 0;
 
 protected:
 	std::string myTitle;

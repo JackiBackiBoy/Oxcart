@@ -1,33 +1,83 @@
-﻿  Shader.cpp
+﻿  Camera.cpp
+  Component.cpp
+  Transform.cpp
+  Window.cpp
+C:\Code\Oxcart\OpenGL3D\src\core\Window.cpp(48,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Shader.cpp
   Texture.cpp
+  Keyboard.cpp
+  Mouse.cpp
   Main.cpp
+C:\Code\Oxcart\OpenGL3D\src\Main.cpp(184,30): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Math.cpp
+  Matrix4x4.cpp
+  Vector2D.cpp
+  Vector3D.cpp
   Vector4D.cpp
+  Sandbox.cpp
+  glm.cpp
   stb_image.cpp
   Generating Code...
+Window.obj : error LNK2019: unresolved external symbol glewInit referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glewInit
+Window.obj : error LNK2019: unresolved external symbol glfwInit referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwInit
+Window.obj : error LNK2019: unresolved external symbol glfwTerminate referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwTerminate
+Window.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwCreateWindow
+Window.obj : error LNK2019: unresolved external symbol glfwWindowShouldClose referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwWindowShouldClose
+Window.obj : error LNK2019: unresolved external symbol glfwPollEvents referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwPollEvents
+Window.obj : error LNK2019: unresolved external symbol glfwSetInputMode referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwSetInputMode
+Sandbox.obj : error LNK2001: unresolved external symbol glfwSetInputMode
+Window.obj : error LNK2019: unresolved external symbol glfwGetTime referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwGetTime
+Window.obj : error LNK2019: unresolved external symbol glfwMakeContextCurrent referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwMakeContextCurrent
+Window.obj : error LNK2019: unresolved external symbol glfwSwapBuffers referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol glfwSwapBuffers
+Shader.obj : error LNK2001: unresolved external symbol __glewAttachShader
 Shader.obj : error LNK2001: unresolved external symbol __glewCompileShader
+Shader.obj : error LNK2001: unresolved external symbol __glewCreateProgram
 Shader.obj : error LNK2001: unresolved external symbol __glewCreateShader
+Shader.obj : error LNK2001: unresolved external symbol __glewDeleteShader
+Shader.obj : error LNK2001: unresolved external symbol __glewLinkProgram
 Shader.obj : error LNK2001: unresolved external symbol __glewShaderSource
+Texture.obj : error LNK2001: unresolved external symbol __glewActiveTexture
 Texture.obj : error LNK2001: unresolved external symbol __glewGenerateMipmap
-Main.obj : error LNK2019: unresolved external symbol glewInit referenced in function main
-Main.obj : error LNK2019: unresolved external symbol glfwInit referenced in function main
-Main.obj : error LNK2019: unresolved external symbol glfwTerminate referenced in function main
-Main.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function main
-Main.obj : error LNK2019: unresolved external symbol glfwWindowShouldClose referenced in function main
-Main.obj : error LNK2019: unresolved external symbol glfwPollEvents referenced in function main
-Main.obj : error LNK2019: unresolved external symbol glfwMakeContextCurrent referenced in function main
-Main.obj : error LNK2019: unresolved external symbol glfwSwapBuffers referenced in function main
+Keyboard.obj : error LNK2019: unresolved external symbol glfwGetKey referenced in function "public: static bool __cdecl Keyboard::IsKeyDown(enum KeyCode,struct GLFWwindow *)" (?IsKeyDown@Keyboard@@SA_NW4KeyCode@@PEAUGLFWwindow@@@Z)
+Mouse.obj : error LNK2019: unresolved external symbol glfwGetCursorPos referenced in function "public: static struct Vector2D __cdecl Mouse::GetPosition(struct GLFWwindow *)" (?GetPosition@Mouse@@SA?AUVector2D@@PEAUGLFWwindow@@@Z)
 Main.obj : error LNK2001: unresolved external symbol __glewBindBuffer
+Sandbox.obj : error LNK2001: unresolved external symbol __glewBindBuffer
 Main.obj : error LNK2001: unresolved external symbol __glewBufferData
+Sandbox.obj : error LNK2001: unresolved external symbol __glewBufferData
+Main.obj : error LNK2001: unresolved external symbol __glewDeleteBuffers
 Main.obj : error LNK2001: unresolved external symbol __glewGenBuffers
-Main.obj : error LNK2001: unresolved external symbol __glewAttachShader
-Main.obj : error LNK2001: unresolved external symbol __glewCreateProgram
-Main.obj : error LNK2001: unresolved external symbol __glewDeleteShader
+Sandbox.obj : error LNK2001: unresolved external symbol __glewGenBuffers
 Main.obj : error LNK2001: unresolved external symbol __glewEnableVertexAttribArray
-Main.obj : error LNK2001: unresolved external symbol __glewLinkProgram
+Sandbox.obj : error LNK2001: unresolved external symbol __glewEnableVertexAttribArray
+Main.obj : error LNK2001: unresolved external symbol __glewGetUniformLocation
+Sandbox.obj : error LNK2001: unresolved external symbol __glewGetUniformLocation
+Main.obj : error LNK2001: unresolved external symbol __glewUniform1f
+Sandbox.obj : error LNK2001: unresolved external symbol __glewUniform1f
+Main.obj : error LNK2001: unresolved external symbol __glewUniform1i
+Sandbox.obj : error LNK2001: unresolved external symbol __glewUniform1i
+Main.obj : error LNK2001: unresolved external symbol __glewUniform3f
+Sandbox.obj : error LNK2001: unresolved external symbol __glewUniform3f
+Main.obj : error LNK2001: unresolved external symbol __glewUniformMatrix4fv
+Sandbox.obj : error LNK2001: unresolved external symbol __glewUniformMatrix4fv
 Main.obj : error LNK2001: unresolved external symbol __glewUseProgram
+Sandbox.obj : error LNK2001: unresolved external symbol __glewUseProgram
 Main.obj : error LNK2001: unresolved external symbol __glewVertexAttribPointer
+Sandbox.obj : error LNK2001: unresolved external symbol __glewVertexAttribPointer
 Main.obj : error LNK2001: unresolved external symbol __glewBindVertexArray
+Sandbox.obj : error LNK2001: unresolved external symbol __glewBindVertexArray
+Main.obj : error LNK2001: unresolved external symbol __glewDeleteVertexArrays
 Main.obj : error LNK2001: unresolved external symbol __glewGenVertexArrays
-C:\Code\OpenGL3D\Dependencies\GLEW\lib\Release\Win32\glew32s.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-C:\Code\OpenGL3D\Dependencies\GLFW\lib-vc2019\glfw3.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-C:\Code\OpenGL3D\x64\Debug\OpenGL3D.exe : fatal error LNK1120: 24 unresolved externals
+Sandbox.obj : error LNK2001: unresolved external symbol __glewGenVertexArrays
+C:\Code\Oxcart\Dependencies\GLEW\lib\Release\Win32\glew32s.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Code\Oxcart\Dependencies\GLFW\lib-vc2019\glfw3.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Code\Oxcart\x64\Debug\OpenGL3D.exe : fatal error LNK1120: 36 unresolved externals

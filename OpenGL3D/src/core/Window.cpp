@@ -47,7 +47,7 @@ void Window::Run()
 	{
 		float tempCurrentTime = glfwGetTime();
 		float tempDeltaTime = tempCurrentTime - tempLastTime;
-		float tempLastTime = tempCurrentTime;
+		tempLastTime = tempCurrentTime;
 
 		// OnUpdate (called every frame)
 		OnUpdate(tempDeltaTime);
@@ -56,7 +56,7 @@ void Window::Run()
 		glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// OnRenderer (called every frame)
+		// OnRender (called every frame)
 		OnRender(tempDeltaTime);
 		Window::OnRender(tempDeltaTime);
 
@@ -72,12 +72,12 @@ void Window::OnStart()
 
 }
 
-void Window::OnUpdate(float aDeltaTime)
+void Window::OnUpdate(const float& aDeltaTime)
 {
 
 }
 
-void Window::OnRender(float aDeltaTime)
+void Window::OnRender(const float& aDeltaTime)
 {
 
 }

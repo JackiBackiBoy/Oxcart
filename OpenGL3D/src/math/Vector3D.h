@@ -32,7 +32,7 @@ struct Vector3D
 	// Operator overloads
 	inline Vector3D operator+(const Vector3D& aVector) const { return { x + aVector.x, y + aVector.y, z + aVector.z }; }
 
-	inline Vector3D& operator+=(const Vector3D& aVector) { x -= aVector.x; y -= aVector.y; z -= aVector.z; return *this; }
+	inline Vector3D& operator+=(const Vector3D& aVector) { x += aVector.x; y += aVector.y; z += aVector.z; return *this; }
 	inline Vector3D& operator-=(const Vector3D& aVector) { x -= aVector.x; y -= aVector.y; z -= aVector.z; return *this; }
 
 	inline Vector3D operator-(const Vector3D& aVector) const { return { x - aVector.x, y - aVector.y, z - aVector.z }; }

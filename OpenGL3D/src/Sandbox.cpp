@@ -126,7 +126,7 @@ public:
 		glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 
-	void OnUpdate(float aDeltaTime) override
+	void OnUpdate(const float& aDeltaTime) override
 	{
 		// Forward
 		if (Keyboard::IsKeyDown(KeyCode::W, myRawWindow))
@@ -142,12 +142,12 @@ public:
 		// Left
 		if (Keyboard::IsKeyDown(KeyCode::A, myRawWindow))
 		{
-			myCameraPosition -= Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, Vector3D::Up)) * 2.0f * aDeltaTime;
+			myCameraPosition -= Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
 		}
 		// Right
 		if (Keyboard::IsKeyDown(KeyCode::D, myRawWindow))
 		{
-			myCameraPosition += Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, Vector3D::Up)) * 2.0f * aDeltaTime;
+			myCameraPosition += Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
 		}
 
 		// Up
@@ -182,12 +182,11 @@ public:
 		Vector3D tempDirection;
 		tempDirection.x = cos(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
 		tempDirection.y = sin(Math::ToRadians(myPitch));
-		tempDirection.z = sin(Math::ToRadians(myPitch)) * cos(Math::ToRadians(myPitch));
-		//myCamera->GetTransform().Rotation() = Vector3D::Normalize(tempDirection);
+		tempDirection.z = sin(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
 		myCameraFront = Vector3D::Normalize(tempDirection);
 	}
 
-	void OnRender(float aDeltaTime) override
+	void OnRender(const float& aDeltaTime) override
 	{
 		glUseProgram(myLightingShader->GetID());
 		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "light.position"), myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
@@ -232,7 +231,6 @@ public:
 
 		// Projection Matrix
 		Matrix4x4 tempProjectionMatrix;
-		myAspectRatio;
 		tempProjectionMatrix = Matrix4x4::Perspective(Math::ToRadians(45.0f), myAspectRatio, 0.1f, 100.0f);
 
 		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ModelMatrix"), 1, GL_FALSE, tempModelMatrix.GetValuePtr());
@@ -246,8 +244,10 @@ public:
 		{
 			Matrix4x4 model = Matrix4x4::Identity();
 			model = Matrix4x4::Translate(model, cubePositions[i]);
+
 			float angle = 20.0f * i;
 			model = Matrix4x4::Rotate(model, Math::ToRadians(angle), { 1.0f, 0.3f, 0.5f });
+			
 			glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ModelMatrix"), 1, GL_FALSE, model.GetValuePtr());
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -257,9 +257,11 @@ public:
 		glUseProgram(myLightCubeShader->GetID());
 		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader->GetID(), "ProjectionMatrix"), 1, GL_FALSE, tempProjectionMatrix.GetValuePtr());
 		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader->GetID(), "ViewMatrix"), 1, GL_FALSE, tempViewMatrix.GetValuePtr());
+
 		tempModelMatrix = Matrix4x4::Identity();
 		tempModelMatrix = Matrix4x4::Translate(tempModelMatrix, myLightPosition);
 		tempModelMatrix = Matrix4x4::Scale(tempModelMatrix, { 0.2f, 0.2f, 0.2f });
+
 		glUniformMatrix4fv(glGetUniformLocation(myLightCubeShader->GetID(), "ModelMatrix"), 1, GL_FALSE, tempModelMatrix.GetValuePtr());
 
 		glBindVertexArray(myLightVAO);
