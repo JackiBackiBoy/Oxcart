@@ -5,7 +5,7 @@
 
 struct Triangle
 {
-	Triangle() : vertices(), normal({ 0, 0, 0 }) {};
+	Triangle() {};
 
 	Vector3D vertices[3];
 	Vector3D normal;
