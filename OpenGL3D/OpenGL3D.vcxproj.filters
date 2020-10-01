@@ -78,6 +78,9 @@
     <ClCompile Include="src\data\Texture2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\data\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector4D.h">
@@ -981,6 +984,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\data\Texture2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\data\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -156,6 +156,7 @@
     <ClCompile Include="src\components\Transform.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
     <ClCompile Include="src\data\Mesh.cpp" />
+    <ClCompile Include="src\data\Model.cpp" />
     <ClCompile Include="src\data\Texture2D.cpp" />
     <ClCompile Include="src\data\Vertex.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\components\Transform.h" />
     <ClInclude Include="src\core\Window.h" />
     <ClInclude Include="src\data\Mesh.h" />
+    <ClInclude Include="src\data\Model.h" />
     <ClInclude Include="src\data\Texture2D.h" />
     <ClInclude Include="src\data\Vertex.h" />
     <ClInclude Include="src\graphics\Shader.h" />

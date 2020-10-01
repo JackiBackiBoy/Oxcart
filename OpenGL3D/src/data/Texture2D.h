@@ -3,13 +3,12 @@
 
 #include <string>
 
-class Texture2D
+struct Texture2D
 {
-public:
-	Texture2D() : myID(0), myType(""){};
+	Texture2D() : ID(0), type(""), path("") {};
 
-private:
-	unsigned int myID;
-	std::string myType;
+	unsigned int ID;
+	std::string type;
+	std::string path;
 };
 #endif

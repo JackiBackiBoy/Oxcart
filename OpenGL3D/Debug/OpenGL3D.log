@@ -1,7 +1,18 @@
 ﻿  Mesh.cpp
-  Vertex.cpp
+C:\Development\Oxcart\OpenGL3D\src\data\Mesh.cpp(58,79): warning C4244: 'argument': conversion from 'unsigned int' to 'GLfloat', possible loss of data
+  Model.cpp
+  Texture2D.cpp
+C:\Development\Oxcart\OpenGL3D\src\data\Texture2D.cpp(1,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Main.cpp
+C:\Development\Oxcart\OpenGL3D\src\Main.cpp(184,30): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Generating Code...
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Code\Oxcart\Debug\vc120.pdb'; linking object as if no debug info
-  OpenGL3D.vcxproj -> C:\Code\Oxcart\Debug\OpenGL3D.exe
+Model.obj : error LNK2019: unresolved external symbol "public: __thiscall Assimp::Importer::Importer(void)" (??0Importer@Assimp@@QAE@XZ) referenced in function "private: void __thiscall Model::LoadModel(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?LoadModel@Model@@AAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Model.obj : error LNK2019: unresolved external symbol "public: __thiscall Assimp::Importer::~Importer(void)" (??1Importer@Assimp@@QAE@XZ) referenced in function "private: void __thiscall Model::LoadModel(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?LoadModel@Model@@AAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Model.obj : error LNK2019: unresolved external symbol "public: struct aiScene const * __thiscall Assimp::Importer::ReadFile(char const *,unsigned int)" (?ReadFile@Importer@Assimp@@QAEPBUaiScene@@PBDI@Z) referenced in function "public: struct aiScene const * __thiscall Assimp::Importer::ReadFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?ReadFile@Importer@Assimp@@QAEPBUaiScene@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z)
+Model.obj : error LNK2019: unresolved external symbol "public: char const * __thiscall Assimp::Importer::GetErrorString(void)const " (?GetErrorString@Importer@Assimp@@QBEPBDXZ) referenced in function "private: void __thiscall Model::LoadModel(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?LoadModel@Model@@AAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Model.obj : error LNK2019: unresolved external symbol _aiGetMaterialTextureCount referenced in function "public: unsigned int __thiscall aiMaterial::GetTextureCount(enum aiTextureType)const " (?GetTextureCount@aiMaterial@@QBEIW4aiTextureType@@@Z)
+Model.obj : error LNK2019: unresolved external symbol _aiGetMaterialTexture referenced in function "public: enum aiReturn __thiscall aiMaterial::GetTexture(enum aiTextureType,unsigned int,struct aiString *,enum aiTextureMapping *,unsigned int *,float *,enum aiTextureOp *,enum aiTextureMapMode *)const " (?GetTexture@aiMaterial@@QBE?AW4aiReturn@@W4aiTextureType@@IPAUaiString@@PAW4aiTextureMapping@@PAIPAMPAW4aiTextureOp@@PAW4aiTextureMapMode@@@Z)
+C:\Development\Oxcart\Dependencies\Assimp\lib\assimp.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+C:\Development\Oxcart\Debug\OpenGL3D.exe : fatal error LNK1120: 6 unresolved externals

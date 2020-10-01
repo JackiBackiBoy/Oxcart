@@ -98,6 +98,24 @@ uniform vec3 ViewPosition;
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform SpotLight spotLight;
 
+uniform sampler2D textureDiffuse1;
+uniform sampler2D textureDiffuse2;
+uniform sampler2D textureDiffuse3;
+uniform sampler2D textureDiffuse4;
+uniform sampler2D textureDiffuse5;
+uniform sampler2D textureDiffuse6;
+uniform sampler2D textureDiffuse7;
+uniform sampler2D textureDiffuse8;
+
+uniform sampler2D textureSpecular1;
+uniform sampler2D textureSpecular2;
+uniform sampler2D textureSpecular3;
+uniform sampler2D textureSpecular4;
+uniform sampler2D textureSpecular5;
+uniform sampler2D textureSpecular6;
+uniform sampler2D textureSpecular7;
+uniform sampler2D textureSpecular8;
+
 vec3 CalculateDirectionalLight(DirectionalLight aDirectionalLight, vec3 aNormal, vec3 aViewDirection);
 vec3 CalculatePointLight(PointLight aPointLight, vec3 aNormal, vec3 aFragPosition, vec3 aViewDirection);
 vec3 CalculateSpotLight(SpotLight aSpotLight, vec3 aNormal, vec3 aFragPosition, vec3 aViewDirection);

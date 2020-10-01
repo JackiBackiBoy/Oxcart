@@ -2,20 +2,27 @@
   Component.cpp
   Transform.cpp
   Window.cpp
-C:\Code\Oxcart\OpenGL3D\src\core\Window.cpp(48,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Development\Oxcart\OpenGL3D\src\core\Window.cpp(48,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Mesh.cpp
+  Texture2D.cpp
+C:\Development\Oxcart\OpenGL3D\src\data\Texture2D.cpp(1,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Vertex.cpp
   Shader.cpp
   Texture.cpp
   Keyboard.cpp
   Mouse.cpp
   Main.cpp
-C:\Code\Oxcart\OpenGL3D\src\Main.cpp(184,30): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Development\Oxcart\OpenGL3D\src\Main.cpp(184,30): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Math.cpp
   Matrix4x4.cpp
+  Triangle.cpp
   Vector2D.cpp
   Vector3D.cpp
   Vector4D.cpp
   Sandbox.cpp
   glm.cpp
+  Generating Code...
+  Compiling...
   stb_image.cpp
   Generating Code...
 Window.obj : error LNK2019: unresolved external symbol glewInit referenced in function "public: void __cdecl Window::Run(void)" (?Run@Window@@QEAAXXZ)
@@ -78,6 +85,6 @@ Sandbox.obj : error LNK2001: unresolved external symbol __glewBindVertexArray
 Main.obj : error LNK2001: unresolved external symbol __glewDeleteVertexArrays
 Main.obj : error LNK2001: unresolved external symbol __glewGenVertexArrays
 Sandbox.obj : error LNK2001: unresolved external symbol __glewGenVertexArrays
-C:\Code\Oxcart\Dependencies\GLEW\lib\Release\Win32\glew32s.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-C:\Code\Oxcart\Dependencies\GLFW\lib-vc2019\glfw3.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-C:\Code\Oxcart\x64\Debug\OpenGL3D.exe : fatal error LNK1120: 36 unresolved externals
+C:\Development\Oxcart\Dependencies\GLEW\lib\Release\Win32\glew32s.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Development\Oxcart\Dependencies\GLFW\lib-vc2019\glfw3.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Development\Oxcart\x64\Debug\OpenGL3D.exe : fatal error LNK1120: 36 unresolved externals
