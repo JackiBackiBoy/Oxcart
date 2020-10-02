@@ -9,17 +9,18 @@
 class Model
 {
 public:
+	Model() {};
 	Model(char* aPath);
 	~Model() {};
 
-	void Render(Shader& aShader) const;
+	void Render(Shader& aShader);
 
 private:
 	std::vector<Mesh> myMeshes;
 	std::string myDirectory;
 	std::vector<Texture2D> myLoadedTextures;
 
-	unsigned int TextureFromFile(const char* aPath, const std::string& aDirectory, const bool& anIsGammaOn = false);
+	unsigned int TextureFromFile(const char* aPath, const std::string& aDirectory);
 
 	void LoadModel(const std::string& aPath);
 	void ProcessNode(aiNode* aNode, const aiScene* aScene);

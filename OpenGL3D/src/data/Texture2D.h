@@ -5,7 +5,7 @@
 
 struct Texture2D
 {
-	Texture2D() : ID(0), type(""), path("") {};
+	Texture2D() : ID((unsigned int)0), type(""), path("") {};
 
 	unsigned int ID;
 	std::string type;

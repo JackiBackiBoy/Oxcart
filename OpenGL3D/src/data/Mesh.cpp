@@ -33,7 +33,7 @@ Mesh::Mesh(const std::vector<Vertex>& someVertices, const std::vector<unsigned i
 	glBindVertexArray(0);
 }
 
-void Mesh::Render(Shader& aShader) const
+void Mesh::Render(Shader& aShader)
 {
 	unsigned int tempDiffuseNumber = 1;
 	unsigned int tempSpecularNumber = 1;
@@ -54,14 +54,14 @@ void Mesh::Render(Shader& aShader) const
 			tempNumber = std::to_string(tempSpecularNumber++);
 		}
 
-		std::string tempUniformName = "material." + tempName + tempNumber;
-		glUniform1f(glGetUniformLocation(aShader.GetID(), tempUniformName.c_str()), i);
+		std::string tempUniformName = tempName + tempNumber;
+		glUniform1i(glGetUniformLocation(aShader.GetID(), tempUniformName.c_str()), i);
 		glBindTexture(GL_TEXTURE_2D, myTextures[i].ID);
 	}
-
-	glActiveTexture(GL_TEXTURE0);
 
 	glBindVertexArray(myVAO);
 	glDrawElements(GL_TRIANGLES, myIndices.size(), GL_UNSIGNED_INT, (void*)0);
 	glBindVertexArray(0);
+
+	glActiveTexture(GL_TEXTURE0);
 }

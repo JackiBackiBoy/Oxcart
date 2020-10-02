@@ -5,6 +5,7 @@
 #include "Vertex.h"
 #include "Texture2D.h"
 #include "graphics/Shader.h"
+#include <vector>
 
 class Mesh
 {
@@ -12,7 +13,7 @@ public:
 	Mesh(const std::vector<Vertex>& someVertices, const std::vector<unsigned int>& someIndices, const std::vector<Texture2D>& someTextures);
 	~Mesh() {};
 
-	void Render(Shader& aShader) const;
+	void Render(Shader& aShader);
 
 private:
 	std::vector<Vertex> myVertices;

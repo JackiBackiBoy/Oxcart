@@ -14,6 +14,8 @@
 #include "vendor/glm/gtc/matrix_transform.hpp"
 #include "vendor/glm/gtc/type_ptr.hpp"
 
+#include "data/Model.h"
+
 #include <iostream>
 
 class Sandbox : public Window
@@ -24,10 +26,14 @@ public:
 
 	void OnStart() override
 	{
+		char tempPath[] = "C:\\Code\\Oxcart\\OpenGL3D\\res\\models\\backpack.obj";
+		aModel = Model(tempPath);
+
 		//myCamera = new Camera();
 		//myCamera->GetTransform().Position() = { 0.0f, 0.0f, 3.0f };
 		//myCamera->GetTransform().Rotation() = { 0.0f, 0.0f, -1.0f };
 
+		myModelShader = Shader("res/shaders/ModelLoading.glsl");
 		myLightingShader = new Shader("res/shaders/LightingShader.glsl");
 		myLightCubeShader = new Shader("res/shaders/LightCubeShader.glsl");
 
@@ -250,7 +256,7 @@ public:
 			
 			glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ModelMatrix"), 1, GL_FALSE, model.GetValuePtr());
 
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			//glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 
 		// Draw the scene light
@@ -272,6 +278,13 @@ public:
 		}
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+		glUseProgram(myModelShader.GetID());
+		glUniformMatrix4fv(glGetUniformLocation(myModelShader.GetID(), "projection"), 1, GL_FALSE, tempProjectionMatrix.GetValuePtr());
+		glUniformMatrix4fv(glGetUniformLocation(myModelShader.GetID(), "view"), 1, GL_FALSE, tempViewMatrix.GetValuePtr());
+		glUniformMatrix4fv(glGetUniformLocation(myModelShader.GetID(), "model"), 1, GL_FALSE, tempModelMatrix.GetValuePtr());
+
+		aModel.Render(myModelShader);
 	}
 
 private:
@@ -309,11 +322,14 @@ private:
 
 	Shader* myLightingShader;
 	Shader* myLightCubeShader;
+	Shader myModelShader;
 
 	Vector3D myLightPosition = { 1.2f, 1.0f, 2.0f };
 
 	Texture* myWoodBoxTexture;
 	Texture* myWoodBoxSpecularMap;
+
+	Model aModel;
 };
 
 Window* BuildWindow()

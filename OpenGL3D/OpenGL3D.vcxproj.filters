@@ -1402,5 +1402,6 @@
     </None>
     <None Include="res\shaders\LightCubeShader.glsl" />
     <None Include="res\shaders\LightingShader.glsl" />
+    <None Include="res\shaders\ModelLoading.gsl" />
   </ItemGroup>
 </Project>

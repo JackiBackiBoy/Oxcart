@@ -8,15 +8,15 @@ Model::Model(char* aPath)
 	LoadModel(aPath);
 }
 
-void Model::Render(Shader& aShader) const
+void Model::Render(Shader& aShader)
 {
-	for (unsigned int i = 0; myMeshes.size(); i++)
+	for (unsigned int i = 0; i < myMeshes.size(); i++)
 	{
 		myMeshes[i].Render(aShader);
 	}
 }
 
-unsigned int Model::TextureFromFile(const char* aPath, const std::string& aDirectory, const bool& anIsGammaOn)
+unsigned int Model::TextureFromFile(const char* aPath, const std::string& aDirectory)
 {
 	std::string tempFileName = std::string(aPath);
 	tempFileName = aDirectory + '/' + tempFileName;
@@ -28,6 +28,7 @@ unsigned int Model::TextureFromFile(const char* aPath, const std::string& aDirec
 	int tempHeight;
 	int tempChannelCount;
 
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* tempData = stbi_load(tempFileName.c_str(), &tempWidth, &tempHeight, &tempChannelCount, 0);
 
 	if (tempData)
@@ -56,6 +57,11 @@ unsigned int Model::TextureFromFile(const char* aPath, const std::string& aDirec
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+		stbi_image_free(tempData);
+	}
+	else
+	{
+		std::cout << "Error (Assimp): " << aPath << std::endl;
 		stbi_image_free(tempData);
 	}
 
@@ -112,10 +118,13 @@ Mesh Model::ProcessMesh(aiMesh* aMesh, const aiScene* aScene)
 		tempVertex.position = tempVector3D;
 
 		// Process vertex normals
-		tempVector3D.x = aMesh->mNormals[i].x;
-		tempVector3D.y = aMesh->mNormals[i].y;
-		tempVector3D.z = aMesh->mNormals[i].z;
-		tempVertex.normal = tempVector3D;
+		if (aMesh->HasNormals())
+		{
+			tempVector3D.x = aMesh->mNormals[i].x;
+			tempVector3D.y = aMesh->mNormals[i].y;
+			tempVector3D.z = aMesh->mNormals[i].z;
+			tempVertex.normal = tempVector3D;
+		}
 
 		// Process texture coordinates
 		if (aMesh->mTextureCoords[0])
