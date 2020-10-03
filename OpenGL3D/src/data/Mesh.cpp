@@ -45,17 +45,16 @@ void Mesh::Render(Shader& aShader)
 		std::string tempNumber;
 		std::string tempName = myTextures[i].type;
 
-		if (tempName == "textureDiffuse")
+		if (tempName == "diffuse")
 		{
 			tempNumber = std::to_string(tempDiffuseNumber++);
 		}
-		else if (tempName == "textureSpecular")
+		else if (tempName == "specular")
 		{
 			tempNumber = std::to_string(tempSpecularNumber++);
 		}
 
-		std::string tempUniformName = tempName + tempNumber;
-		glUniform1i(glGetUniformLocation(aShader.GetID(), tempUniformName.c_str()), i);
+		glUniform1i(glGetUniformLocation(aShader.GetID(), ("material." +  tempName).c_str()), i);
 		glBindTexture(GL_TEXTURE_2D, myTextures[i].ID);
 	}
 

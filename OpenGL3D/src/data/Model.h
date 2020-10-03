@@ -10,7 +10,7 @@ class Model
 {
 public:
 	Model() {};
-	Model(char* aPath);
+	Model(const std::string& aPath);
 	~Model() {};
 
 	void Render(Shader& aShader);

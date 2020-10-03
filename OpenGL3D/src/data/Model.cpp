@@ -3,7 +3,7 @@
 #include "GL/glew.h"
 #include "vendor/stb_image/stb_image.h"
 
-Model::Model(char* aPath)
+Model::Model(const std::string& aPath)
 {
 	LoadModel(aPath);
 }
@@ -159,11 +159,11 @@ Mesh Model::ProcessMesh(aiMesh* aMesh, const aiScene* aScene)
 		aiMaterial* tempMaterial = aScene->mMaterials[aMesh->mMaterialIndex];
 
 		// Diffuse maps
-		std::vector<Texture2D> tempDiffuseMaps = LoadMaterialTextures(tempMaterial, aiTextureType_DIFFUSE, "textureDiffuse");
+		std::vector<Texture2D> tempDiffuseMaps = LoadMaterialTextures(tempMaterial, aiTextureType_DIFFUSE, "diffuse");
 		tempTextures.insert(tempTextures.end(), tempDiffuseMaps.begin(), tempDiffuseMaps.end());
 
 		// Specular maps
-		std::vector<Texture2D> tempSpecularMaps = LoadMaterialTextures(tempMaterial, aiTextureType_SPECULAR, "textureSpecular");
+		std::vector<Texture2D> tempSpecularMaps = LoadMaterialTextures(tempMaterial, aiTextureType_SPECULAR, "specular");
 		tempTextures.insert(tempTextures.end(), tempSpecularMaps.begin(), tempSpecularMaps.end());
 	}
 
