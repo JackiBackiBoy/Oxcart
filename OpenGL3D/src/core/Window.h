@@ -12,10 +12,11 @@ public:
 	virtual ~Window();
 
 	void Run();
-
 	virtual void OnStart() = 0;
 	virtual void OnUpdate(const float& aDeltaTime) = 0;
 	virtual void OnRender(const float& aDeltaTime) = 0;
+
+	inline float GetAspectRatio() const { return (float)myScreenWidth / myScreenHeight; }
 
 protected:
 	std::string myTitle;

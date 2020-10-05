@@ -1,2 +1,6 @@
-﻿  Mesh.cpp
+﻿  Main.cpp
+  Sandbox.cpp
+  Window.cpp
+C:\Development\Oxcart\OpenGL3D\src\core\Window.cpp(48,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   OpenGL3D.vcxproj -> C:\Development\Oxcart\Debug\OpenGL3D.exe

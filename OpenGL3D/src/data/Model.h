@@ -9,8 +9,8 @@
 class Model
 {
 public:
-	Model() {};
-	Model(const std::string& aPath);
+	Model() : myIsFlippedUVs(false) {};
+	Model(const std::string& aPath, const bool& anIsFlippedUVs = false);
 	~Model() {};
 
 	void Render(Shader& aShader);
@@ -19,6 +19,7 @@ private:
 	std::vector<Mesh> myMeshes;
 	std::string myDirectory;
 	std::vector<Texture2D> myLoadedTextures;
+	bool myIsFlippedUVs;
 
 	unsigned int TextureFromFile(const char* aPath, const std::string& aDirectory);
 

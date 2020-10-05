@@ -3,7 +3,7 @@
 #include "GL/glew.h"
 #include "vendor/stb_image/stb_image.h"
 
-Model::Model(const std::string& aPath)
+Model::Model(const std::string& aPath, const bool& anIsFlippedUVs) : myIsFlippedUVs(anIsFlippedUVs)
 {
 	LoadModel(aPath);
 }
@@ -71,7 +71,13 @@ unsigned int Model::TextureFromFile(const char* aPath, const std::string& aDirec
 void Model::LoadModel(const std::string& aPath)
 {
 	Assimp::Importer tempImporter;
-	const aiScene* tempScene = tempImporter.ReadFile(aPath, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+	unsigned int tempModelFlags = aiProcess_Triangulate | aiProcess_GenSmoothNormals;
+
+	// If the model has flipped UVs then flip them
+	if (myIsFlippedUVs) { tempModelFlags |= aiProcess_FlipUVs; }
+
+	const aiScene* tempScene = tempImporter.ReadFile(aPath, tempModelFlags);
 
 	if (!tempScene || tempScene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !tempScene->mRootNode)
 	{
