@@ -219,7 +219,7 @@ public:
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 
-		std::string tempString = "Linus is a nigger";
+		std::string tempString = "Testing text";
 
 		glUniform3f(glGetUniformLocation(myGlyphShader.GetID(), "TextColor"), 1.0f, 1.0f, 1.0f);
 		glActiveTexture(GL_TEXTURE0);
