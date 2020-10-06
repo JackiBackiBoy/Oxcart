@@ -56,40 +56,36 @@ public:
 			std::cout << "Error (Freetype): Could not load the desired font." << std::endl;
 			exit(-1);
 		}
-
-		FT_Set_Pixel_Sizes(tempFace, 0, 48);
-
-		if (FT_Load_Char(tempFace, 'X', FT_LOAD_RENDER))
+		else
 		{
-			std::cout << "Error (Freetype): Failed to load the glyph." << std::endl;
-			exit(-1);
-		}
+			FT_Set_Pixel_Sizes(tempFace, 0, 100);
 
-		for (unsigned char i = 0; i < 128; i++)
-		{
-			// Load the character glyph
-			if (FT_Load_Char(tempFace, i, FT_LOAD_RENDER))
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+			for (unsigned char i = 0; i < 128; i++)
 			{
-				std::cout << "Error (Freetype): Failed to load the glyph." << std::endl;
-				continue;
+				// Load the character glyph
+				if (FT_Load_Char(tempFace, i, FT_LOAD_RENDER))
+				{
+					std::cout << "Error (Freetype): Failed to load the glyph." << std::endl;
+					continue;
+				}
+
+				unsigned int tempTexture;
+				glGenTextures(1, &tempTexture);
+				glBindTexture(GL_TEXTURE_2D, tempTexture);
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, tempFace->glyph->bitmap.width, tempFace->glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, tempFace->glyph->bitmap.buffer);
+
+				// Texture coords
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+				Character tempCharacter = { tempTexture, tempFace->glyph->bitmap.width, tempFace->glyph->bitmap.rows, tempFace->glyph->bitmap_left, tempFace->glyph->bitmap_top, tempFace->glyph->advance.x };
+				myCharacters.insert(std::pair<char, Character>(i, tempCharacter));
 			}
-
-			unsigned int tempTexture;
-			glGenTextures(1, &tempTexture);
-			glBindTexture(GL_TEXTURE_2D, tempTexture);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, tempFace->glyph->bitmap.width, tempFace->glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, tempFace->glyph->bitmap.buffer);
-
-			// Texture coords
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-			Character tempCharacter = { tempTexture, tempFace->glyph->bitmap.width, tempFace->glyph->bitmap.rows, tempFace->glyph->bitmap_left, tempFace->glyph->bitmap_top, tempFace->glyph->advance.x };
-			myCharacters.insert(std::pair<char, Character>(i, tempCharacter));
 		}
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 		FT_Done_Face(tempFace);
 		FT_Done_FreeType(tempFT);
@@ -210,6 +206,67 @@ public:
 		glUseProgram(myGlyphShader.GetID());
 		tempProjectionMatrix = Matrix4x4::Ortographic(0.0f, myScreenWidth, 0.0f, myScreenHeight);
 		glUniformMatrix4fv(glGetUniformLocation(myGlyphShader.GetID(), "ProjectionMatrix"), 1, false, tempProjectionMatrix.GetValuePtr());
+
+		glGenVertexArrays(1, &myVAO);
+		glGenBuffers(1, &myVBO);
+
+		glBindVertexArray(myVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, myVBO);
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+
+		std::string tempString = "Linus is a nigger";
+
+		glUniform3f(glGetUniformLocation(myGlyphShader.GetID(), "TextColor"), 1.0f, 1.0f, 1.0f);
+		glActiveTexture(GL_TEXTURE0);
+		glBindVertexArray(myVAO);
+
+		std::string::const_iterator tempIterator;
+
+		int tempX = 0;
+
+		for (tempIterator = tempString.begin(); tempIterator != tempString.end(); tempIterator++)
+		{
+			Character tempCharacter = myCharacters[*tempIterator];
+
+			float tempXPosition = tempX + tempCharacter.bearingX * 1;
+			float tempYPosition = 0 - (tempCharacter.sizeY - tempCharacter.bearingY);
+
+			float tempWidth = tempCharacter.sizeX * 1;
+			float tempHeight = tempCharacter.sizeY * 1;
+
+			float tempVertices[6][4] =
+			{
+				{ tempXPosition, tempYPosition + tempHeight, 0.0f, 0.0f },
+				{ tempXPosition, tempYPosition, 0.0f, 1.0f },
+				{ tempXPosition + tempWidth, tempYPosition, 1.0f, 1.0f },
+
+				{ tempXPosition, tempYPosition + tempHeight, 0.0f, 0.0f },
+				{ tempXPosition + tempWidth, tempYPosition, 1.0f, 1.0f },
+				{ tempXPosition + tempWidth, tempYPosition + tempHeight, 1.0f, 0.0f }
+			};
+
+			glBindTexture(GL_TEXTURE_2D, tempCharacter.textureID);
+			glBindBuffer(GL_ARRAY_BUFFER, myVBO);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(tempVertices), tempVertices);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			// Render the quad
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+
+			// advance cursors for the next glyph
+			// bitshift trick to get value in pixels (2^6 = 64)
+			// this is done because the advance number is number of
+			// 1/64 pixels.
+			tempX += (tempCharacter.advanceOffset >> 6) * 1;
+		}
+
+		glBindVertexArray(0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 private:

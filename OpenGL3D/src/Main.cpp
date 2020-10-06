@@ -10,6 +10,4 @@ int main(void)
 	tempWindow->Run();
 	delete tempWindow;
 	return 0;
-
-	glm::mat4 projection = glm::ortho()
 }
