@@ -12,10 +12,15 @@
 #include "vendor/glm/glm.hpp"
 #include "vendor/glm/gtc/matrix_transform.hpp"
 #include "vendor/glm/gtc/type_ptr.hpp"
+#include "ui/Character.h"
 
 #include "data/Model.h"
 
+#include <map>
+
 #include <iostream>
+#include "ft2build.h"
+#include FT_FREETYPE_H
 
 class Sandbox : public Window
 {
@@ -27,12 +32,67 @@ public:
 	{
 		myLightingShader = new Shader("res/shaders/LightingShader.glsl");
 		myLightCubeShader = new Shader("res/shaders/LightCubeShader.glsl");
+		myGlyphShader = Shader("res/shaders/GlyphShader.glsl");
 
 		glEnable(GL_DEPTH_TEST);
 		glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		aModel = Model("res/models/Nanosuit/nanosuit.obj");
 
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alingment
+
+		// Load Freetype
+		FT_Library tempFT;
+
+		if (FT_Init_FreeType(&tempFT))
+		{
+			std::cout << "Error (Freetype): Could not initialize the FreeType library." << std::endl;
+			exit(-1);
+		}
+
+		FT_Face tempFace;
+		if (FT_New_Face(tempFT, "res/fonts/arial.ttf", 0, &tempFace))
+		{
+			std::cout << "Error (Freetype): Could not load the desired font." << std::endl;
+			exit(-1);
+		}
+
+		FT_Set_Pixel_Sizes(tempFace, 0, 48);
+
+		if (FT_Load_Char(tempFace, 'X', FT_LOAD_RENDER))
+		{
+			std::cout << "Error (Freetype): Failed to load the glyph." << std::endl;
+			exit(-1);
+		}
+
+		for (unsigned char i = 0; i < 128; i++)
+		{
+			// Load the character glyph
+			if (FT_Load_Char(tempFace, i, FT_LOAD_RENDER))
+			{
+				std::cout << "Error (Freetype): Failed to load the glyph." << std::endl;
+				continue;
+			}
+
+			unsigned int tempTexture;
+			glGenTextures(1, &tempTexture);
+			glBindTexture(GL_TEXTURE_2D, tempTexture);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, tempFace->glyph->bitmap.width, tempFace->glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, tempFace->glyph->bitmap.buffer);
+
+			// Texture coords
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+			Character tempCharacter = { tempTexture, tempFace->glyph->bitmap.width, tempFace->glyph->bitmap.rows, tempFace->glyph->bitmap_left, tempFace->glyph->bitmap_top, tempFace->glyph->advance.x };
+			myCharacters.insert(std::pair<char, Character>(i, tempCharacter));
+		}
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		FT_Done_Face(tempFace);
+		FT_Done_FreeType(tempFT);
 	}
 
 	void OnUpdate(const float& aDeltaTime) override
@@ -140,14 +200,21 @@ public:
 		Matrix4x4 tempProjectionMatrix;
 		tempProjectionMatrix = Matrix4x4::Perspective(Math::ToRadians(70.0f), GetAspectRatio(), 0.1f, 100.0f);
 
-		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ModelMatrix"), 1, GL_FALSE, tempModelMatrix.GetValuePtr());
+		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ModelMatrix"), 1, false, tempModelMatrix.GetValuePtr());
 		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ViewMatrix"), 1, GL_FALSE, tempViewMatrix.GetValuePtr());
 		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ProjectionMatrix"), 1, GL_FALSE, tempProjectionMatrix.GetValuePtr());
 
 		aModel.Render(*myLightingShader);
+
+		// Font rendering
+		glUseProgram(myGlyphShader.GetID());
+		tempProjectionMatrix = Matrix4x4::Ortographic(0.0f, myScreenWidth, 0.0f, myScreenHeight);
+		glUniformMatrix4fv(glGetUniformLocation(myGlyphShader.GetID(), "ProjectionMatrix"), 1, false, tempProjectionMatrix.GetValuePtr());
 	}
 
 private:
+	std::map<char, Character> myCharacters;
+
 	Vector2D myLastMousePosition;
 
 	Vector3D myCameraPosition = { 0.0f, 0.0f, 3.0f };
@@ -155,7 +222,7 @@ private:
 	Vector3D myCameraFront = { 0.0f, 0.0f, -1.0f };
 
 	unsigned int myVAO;
-	unsigned int myLightVAO;
+	unsigned int myVBO;
 
 	float myPitch;
 	float myYaw = -90.0f;
@@ -163,6 +230,7 @@ private:
 
 	Shader* myLightingShader;
 	Shader* myLightCubeShader;
+	Shader myGlyphShader;
 
 	Vector3D myLightPosition = { 1.2f, 1.0f, 2.0f };
 	Model aModel;

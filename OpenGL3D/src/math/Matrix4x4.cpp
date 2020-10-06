@@ -120,6 +120,17 @@ Matrix4x4 Matrix4x4::Perspective(const float& someFOV, const float& anAspectRati
 	return tempMatrix;
 }
 
+Matrix4x4 Matrix4x4::Ortographic(const float& aLeft, const float& aRight, const float& aBottom, const float& aTop)
+{
+	Matrix4x4 tempResult = Matrix4x4::Identity();
+	tempResult.matrixData[0][0] = 2.0f / (aRight - aLeft);
+	tempResult.matrixData[1][1] = 2.0f / (aTop - aBottom);
+	tempResult.matrixData[2][2] = -1.0f;
+	tempResult.matrixData[3][0] = -(aRight + aLeft) / (aRight - aLeft);
+	tempResult.matrixData[3][1] = -(aTop + aBottom) / (aTop - aBottom);
+	return tempResult;
+}
+
 Matrix4x4 Matrix4x4::Translate(const Matrix4x4& aMatrix, const Vector3D& aVector)
 {
 	Matrix4x4 tempMatrix = aMatrix;

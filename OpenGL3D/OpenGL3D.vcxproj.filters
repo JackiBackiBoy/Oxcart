@@ -81,6 +81,9 @@
     <ClCompile Include="src\data\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\UIElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector4D.h">
@@ -989,6 +992,12 @@
     <ClInclude Include="src\data\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ui\UIElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Shader.glsl" />
@@ -1403,5 +1412,6 @@
     <None Include="res\shaders\LightCubeShader.glsl" />
     <None Include="res\shaders\LightingShader.glsl" />
     <None Include="res\shaders\ModelLoading.gsl" />
+    <None Include="res\shaders\GlyphShader.glsl" />
   </ItemGroup>
 </Project>

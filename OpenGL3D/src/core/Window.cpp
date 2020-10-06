@@ -13,6 +13,7 @@ Window::~Window()
 
 void Window::Run()
 {
+	// Load OpenGL functions
 	if (!glfwInit())
 	{
 		exit(-1);
@@ -37,6 +38,8 @@ void Window::Run()
 	float tempLastTime = 0.0f;
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// OnStart (called once at the start of the program)
