@@ -17,6 +17,10 @@ public:
 	virtual void OnRender(const float& aDeltaTime) = 0;
 
 	inline float GetAspectRatio() const { return (float)myScreenWidth / myScreenHeight; }
+	inline int GetFPS() { return myFPS; }
+
+private:
+	int myFPS;
 
 protected:
 	std::string myTitle;

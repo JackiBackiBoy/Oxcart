@@ -58,7 +58,7 @@ public:
 		}
 		else
 		{
-			FT_Set_Pixel_Sizes(tempFace, 0, 100);
+			FT_Set_Pixel_Sizes(tempFace, 0, 30);
 
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -84,6 +84,12 @@ public:
 
 				Character tempCharacter = { tempTexture, tempFace->glyph->bitmap.width, tempFace->glyph->bitmap.rows, tempFace->glyph->bitmap_left, tempFace->glyph->bitmap_top, tempFace->glyph->advance.x };
 				myCharacters.insert(std::pair<char, Character>(i, tempCharacter));
+
+				// Check if the character is the largest
+				if (tempCharacter.sizeY > myLargestCharacterSize)
+				{
+					myLargestCharacterSize = tempCharacter.bearingY;
+				}
 			}
 		}
 
@@ -204,7 +210,7 @@ public:
 
 		// Font rendering
 		glUseProgram(myGlyphShader.GetID());
-		tempProjectionMatrix = Matrix4x4::Ortographic(0.0f, myScreenWidth, 0.0f, myScreenHeight);
+		tempProjectionMatrix = Matrix4x4::Ortographic(0.0f, myScreenWidth, myScreenHeight, 0.0f);
 		glUniformMatrix4fv(glGetUniformLocation(myGlyphShader.GetID(), "ProjectionMatrix"), 1, false, tempProjectionMatrix.GetValuePtr());
 
 		glGenVertexArrays(1, &myVAO);
@@ -219,7 +225,7 @@ public:
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 
-		std::string tempString = "Testing text";
+		std::string tempString = std::to_string(GetFPS()) + " FPS";
 
 		glUniform3f(glGetUniformLocation(myGlyphShader.GetID(), "TextColor"), 1.0f, 1.0f, 1.0f);
 		glActiveTexture(GL_TEXTURE0);
@@ -228,26 +234,27 @@ public:
 		std::string::const_iterator tempIterator;
 
 		int tempX = 0;
+		int tempY = 0;
 
 		for (tempIterator = tempString.begin(); tempIterator != tempString.end(); tempIterator++)
 		{
 			Character tempCharacter = myCharacters[*tempIterator];
 
 			float tempXPosition = tempX + tempCharacter.bearingX * 1;
-			float tempYPosition = 0 - (tempCharacter.sizeY - tempCharacter.bearingY);
+			float tempYPosition = tempY + myLargestCharacterSize - tempCharacter.bearingY;
 
 			float tempWidth = tempCharacter.sizeX * 1;
 			float tempHeight = tempCharacter.sizeY * 1;
 
 			float tempVertices[6][4] =
 			{
-				{ tempXPosition, tempYPosition + tempHeight, 0.0f, 0.0f },
-				{ tempXPosition, tempYPosition, 0.0f, 1.0f },
-				{ tempXPosition + tempWidth, tempYPosition, 1.0f, 1.0f },
+				{ tempXPosition, tempYPosition + tempHeight, 0.0f, 1.0f },
+				{ tempXPosition, tempYPosition, 0.0f, 0.0f },
+				{ tempXPosition + tempWidth, tempYPosition, 1.0f, 0.0f },
 
-				{ tempXPosition, tempYPosition + tempHeight, 0.0f, 0.0f },
-				{ tempXPosition + tempWidth, tempYPosition, 1.0f, 1.0f },
-				{ tempXPosition + tempWidth, tempYPosition + tempHeight, 1.0f, 0.0f }
+				{ tempXPosition, tempYPosition + tempHeight, 0.0f, 1.0f },
+				{ tempXPosition + tempWidth, tempYPosition, 1.0f, 0.0f },
+				{ tempXPosition + tempWidth, tempYPosition + tempHeight, 1.0f, 1.0f }
 			};
 
 			glBindTexture(GL_TEXTURE_2D, tempCharacter.textureID);
@@ -280,6 +287,8 @@ private:
 
 	unsigned int myVAO;
 	unsigned int myVBO;
+
+	int myLargestCharacterSize;
 
 	float myPitch;
 	float myYaw = -90.0f;

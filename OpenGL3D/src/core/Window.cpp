@@ -36,6 +36,8 @@ void Window::Run()
 	}
 
 	float tempLastTime = 0.0f;
+	float tempLastFPSTime = 0.0f;
+	int tempElapsedFrames = 0;
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -48,9 +50,20 @@ void Window::Run()
 
 	while (!glfwWindowShouldClose(myRawWindow))
 	{
+		// Timing
 		float tempCurrentTime = glfwGetTime();
 		float tempDeltaTime = tempCurrentTime - tempLastTime;
 		tempLastTime = tempCurrentTime;
+
+		// FPS (Frames Per Second)
+		tempElapsedFrames++;
+		if (tempCurrentTime - tempLastFPSTime >= 1.0f)
+		{
+			myFPS = tempElapsedFrames;
+
+			tempLastFPSTime += 1.0f;
+			tempElapsedFrames = 0;
+		}
 
 		// OnUpdate (called every frame)
 		OnUpdate(tempDeltaTime);
