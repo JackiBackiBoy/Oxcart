@@ -10,7 +10,7 @@ public:
 	Color(const unsigned char& aRed, const unsigned char& aGreen, const unsigned char& aBlue, const unsigned char& anAlpha = 255)
 		: r(aRed), g(aGreen), b(aBlue), a(anAlpha) {};
 
-	inline static Vector4D Normalized(const Color& aColor) { return Vector4D((float)aColor.r, (float)aColor.g, (float)aColor.b, (float)aColor.a) * ColorQuotient; }
+	inline static Vector4D Normalize(const Color& aColor) { return Vector4D((float)aColor.r, (float)aColor.g, (float)aColor.b, (float)aColor.a) * ColorQuotient; }
 
 	unsigned char r;
 	unsigned char g;

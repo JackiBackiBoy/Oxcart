@@ -16,6 +16,8 @@ public:
 	virtual void OnUpdate(const float& aDeltaTime) = 0;
 	virtual void OnRender(const float& aDeltaTime) = 0;
 
+	inline float GetScreenWidth() const { return myScreenWidth; }
+	inline float GetScreenHeight() const { return myScreenHeight; }
 	inline float GetAspectRatio() const { return (float)myScreenWidth / myScreenHeight; }
 	inline int GetFPS() { return myFPS; }
 

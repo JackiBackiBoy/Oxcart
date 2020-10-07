@@ -5,7 +5,7 @@ UIElement::~UIElement()
 
 }
 
-void UIElement::Render()
+void UIElement::Render(Window& aWindow)
 {
 
 }
