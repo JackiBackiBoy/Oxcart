@@ -41,9 +41,8 @@ public:
 		myImage = UIImage(*myTexture, { 0, 0, 0 });
 		myImage.myShader = *myUIImageShader;
 
-
-
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
 		glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		aModel = Model("res/models/Nanosuit/nanosuit.obj");
@@ -162,10 +161,11 @@ public:
 		aModel.Render(*myLightingShader);
 
 		// Font rendering
-		myText->Text() = std::to_string(GetFPS()) + " FPS";
-		myText->Render(*this);
 
 		myImage.Render(*this);
+
+		myText->Text() = std::to_string(GetFPS()) + " FPS";
+		myText->Render(*this);
 	}
 
 private:

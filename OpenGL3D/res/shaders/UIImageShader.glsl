@@ -3,9 +3,11 @@
 layout (location = 0) in vec4 aVertex;
 out vec2 TexCoords;
 
+uniform mat4 ProjectionMatrix;
+
 void main()
 {
-	gl_Position = vec4(aVertex.xy, 0.0, 1.0);
+	gl_Position = ProjectionMatrix * vec4(aVertex.xy, 0.0, 1.0);
 	TexCoords = aVertex.zw;
 }
 
