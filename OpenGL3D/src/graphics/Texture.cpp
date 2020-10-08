@@ -19,6 +19,8 @@ Texture::Texture(const std::string& aFilePath)
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	stbi_image_free(tempTextureData);
+
+	glBindTexture(GL_TEXTURE0, 0);
 }
 
 Texture::~Texture()

@@ -17,10 +17,10 @@ in vec2 TexCoords;
 out vec4 FragColor;
 
 uniform sampler2D Text;
-uniform vec3 TextColor;
+uniform vec4 TextColor;
 
 void main()
 {
 	vec4 tempSampled = vec4(1.0, 1.0, 1.0, texture(Text, TexCoords).r);
-	FragColor = vec4(TextColor, 1.0) * tempSampled;
+	FragColor = TextColor * tempSampled;
 }

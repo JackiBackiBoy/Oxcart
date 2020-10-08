@@ -1,7 +1,6 @@
 #include "Shader.h"
 #include <fstream>
 #include <sstream>
-#include <GL\glew.h>
 
 Shader::Shader(const std::string& aFilePath) : myFilePath(aFilePath)
 {
@@ -30,6 +29,31 @@ Shader::Shader(const std::string& aFilePath) : myFilePath(aFilePath)
 Shader::~Shader()
 {
 
+}
+
+void Shader::SetUniform1i(const std::string& aUniformName, const int& anInt) const
+{
+	glUniform1i(glGetUniformLocation(myID, aUniformName.c_str()), anInt);
+}
+
+void Shader::SetUniform1f(const std::string& aUniformName, const float& aFloat) const
+{
+	glUniform1f(glGetUniformLocation(myID, aUniformName.c_str()), aFloat);
+}
+
+void Shader::SetUniform3f(const std::string& aUniformName, const float& aFloat1, const float& aFloat2, const float& aFloat3) const
+{
+	glUniform3f(glGetUniformLocation(myID, aUniformName.c_str()), aFloat1, aFloat2, aFloat3);
+}
+
+void Shader::SetUniform4f(const std::string& aUniformName, const float& aFloat1, const float& aFloat2, const float& aFloat3, const float& aFloat4) const
+{
+	glUniform4f(glGetUniformLocation(myID, aUniformName.c_str()), aFloat1, aFloat2, aFloat3, aFloat4);
+}
+
+void Shader::SetUniformMatrix4x4(const std::string& aUniformName, Matrix4x4& aMatrix)
+{
+	glUniformMatrix4fv(glGetUniformLocation(myID, aUniformName.c_str()), 1, false, aMatrix.GetValuePtr());
 }
 
 void Shader::ParseShaderFile(const std::string& aFilePath)

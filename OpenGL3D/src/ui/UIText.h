@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include "math/Vector2D.h"
+#include "math/Vector3D.h"
 #include "Color.h"
 #include "UIElement.h"
 #include "Character.h"
@@ -12,13 +12,16 @@
 class UIText : public UIElement
 {
 public:
-	UIText(const std::string& someText, const Vector2D& aPosition, const Color& aColor);
+	UIText() {};
+	UIText(const std::string& someText, const Vector3D& aPosition, const Color& aColor);
+
+	inline std::string& Text() { return myText; }
+	inline Color& AccessColor() { return myColor; }
 
 	void Render(Window& aWindow) override;
 
 private:
 	std::string myText;
-	Vector2D myPosition;
 	Color myColor;
 
 	std::map<char, Character> myCharacters;

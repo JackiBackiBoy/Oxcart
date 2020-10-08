@@ -5,14 +5,14 @@
 #include "ft2build.h"
 #include FT_FREETYPE_H
 
-UIText::UIText(const std::string& someText, const Vector2D& aPosition, const Color& aColor)
-	: myText(someText), myPosition(aPosition), myColor(aColor)
+UIText::UIText(const std::string& someText, const Vector3D& aPosition, const Color& aColor)
+	: myText(someText), myColor(aColor), UIElement(aPosition)
 {
 	myGlyphShader = Shader("res/shaders/GlyphShader.glsl");
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alingment
 
-		// Load Freetype
+	// Load Freetype
 	FT_Library tempFT;
 
 	if (FT_Init_FreeType(&tempFT))
@@ -29,7 +29,7 @@ UIText::UIText(const std::string& someText, const Vector2D& aPosition, const Col
 	}
 	else
 	{
-		FT_Set_Pixel_Sizes(tempFace, 0, 30);
+		FT_Set_Pixel_Sizes(tempFace, 0, 60);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -88,7 +88,7 @@ void UIText::Render(Window& aWindow)
 	glBindVertexArray(0);
 
 	Vector4D tempNormalizedColor = Color::Normalize(myColor);
-	glUniform3f(glGetUniformLocation(myGlyphShader.GetID(), "TextColor"), tempNormalizedColor.x, tempNormalizedColor.y, tempNormalizedColor.z);
+	myGlyphShader.SetUniform4f("TextColor", tempNormalizedColor.x, tempNormalizedColor.y, tempNormalizedColor.z, tempNormalizedColor.w);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(myVAO);
 
@@ -96,16 +96,17 @@ void UIText::Render(Window& aWindow)
 
 	int tempX = (int)myPosition.x;
 	int tempY = (int)myPosition.y;
+	float tempScale = 1.0f;
 
 	for (tempIterator = myText.begin(); tempIterator != myText.end(); tempIterator++)
 	{
 		Character tempCharacter = myCharacters[*tempIterator];
 
-		float tempXPosition = tempX + tempCharacter.bearingX * 1;
+		float tempXPosition = tempX + tempCharacter.bearingX * tempScale;
 		float tempYPosition = tempY + myLargestCharacterSize - tempCharacter.bearingY;
 
-		float tempWidth = tempCharacter.sizeX * 1;
-		float tempHeight = tempCharacter.sizeY * 1;
+		float tempWidth = tempCharacter.sizeX * tempScale;
+		float tempHeight = tempCharacter.sizeY * tempScale;
 
 		float tempVertices[6][4] =
 		{
@@ -130,7 +131,7 @@ void UIText::Render(Window& aWindow)
 		// bitshift trick to get value in pixels (2^6 = 64)
 		// this is done because the advance number is number of
 		// 1/64 pixels.
-		tempX += (tempCharacter.advanceOffset >> 6) * 1;
+		tempX += (tempCharacter.advanceOffset >> 6) * tempScale;
 	}
 
 	glBindVertexArray(0);

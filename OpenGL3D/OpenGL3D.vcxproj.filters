@@ -90,6 +90,9 @@
     <ClCompile Include="src\ui\Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\UIImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector4D.h">
@@ -1010,6 +1013,9 @@
     <ClInclude Include="src\ui\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ui\UIImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Shader.glsl" />
@@ -1425,5 +1431,6 @@
     <None Include="res\shaders\LightingShader.glsl" />
     <None Include="res\shaders\ModelLoading.gsl" />
     <None Include="res\shaders\GlyphShader.glsl" />
+    <None Include="res\shaders\UIImageShader.glsl" />
   </ItemGroup>
 </Project>

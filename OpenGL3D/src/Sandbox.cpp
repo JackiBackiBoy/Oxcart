@@ -8,6 +8,7 @@
 #include "input/Mouse.h"
 
 #include "ui/UIText.h"
+#include "ui/UIImage.h"
 #include "graphics/Shader.h"
 
 #include "vendor/glm/glm.hpp"
@@ -25,13 +26,22 @@ class Sandbox : public Window
 {
 public: 
 	Sandbox(const std::string& aTitle, const int& aScreenWidth, const int& aScreenHeight)
-		: Window::Window(aTitle, aScreenWidth, aScreenHeight) {}
+		: Window(aTitle, aScreenWidth, aScreenHeight) {}
 
 	void OnStart() override
 	{
 		myLightingShader = new Shader("res/shaders/LightingShader.glsl");
 		myLightCubeShader = new Shader("res/shaders/LightCubeShader.glsl");
-		myText = new UIText("Beep beep boop", { 10, 10 }, { 255, 255, 255 });
+		myUIImageShader = new Shader("res/shaders/UIImageShader.glsl");
+
+
+		myText = new UIText("Beep beep boop", { 10, 10, 0 }, { 255, 255, 255 });
+
+		myTexture = new Texture("res/textures/wood_box.png");
+		myImage = UIImage(*myTexture, { 0, 0, 0 });
+		myImage.myShader = *myUIImageShader;
+
+
 
 		glEnable(GL_DEPTH_TEST);
 		glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -101,36 +111,37 @@ public:
 
 	void OnRender(const float& aDeltaTime) override
 	{
-		glUseProgram(myLightingShader->GetID());
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "light.position"), myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "directionalLight.direction"), -1.0f, -0.23f, -0.9f);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "light.cutOff"), cos(Math::ToRadians(12.5f)));
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "light.outerCutOff"), cos(Math::ToRadians(17.5f)));
+		myLightingShader->Use();
+
+		myLightingShader->SetUniform3f("light.position", myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
+		myLightingShader->SetUniform3f("directionalLight.direction", -1.0f, -0.23f, -0.9f);
+		myLightingShader->SetUniform1f("light.cutOff", cos(Math::ToRadians(12.5f)));
+		myLightingShader->SetUniform1f("light.outerCutOff", cos(Math::ToRadians(17.5f)));
 
 		// Spotlight
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.position"), myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.direction"), myCameraFront.x, myCameraFront.y, myCameraFront.z);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.cutOff"), cos(Math::ToRadians(12.5f)));
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.outerCutOff"), cos(Math::ToRadians(17.5f)));
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.ambient"), 0.1f, 0.1f, 0.1f);
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.diffuse"), 0.8f, 0.8f, 0.8f);
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.specular"), 1.0f, 1.0f, 1.0f);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.constantTerm"), 1.0f);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.linearTerm"), 0.09f);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "spotLight.quadraticTerm"), 0.032f);
+		myLightingShader->SetUniform3f("spotLight.position", myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
+		myLightingShader->SetUniform3f("spotLight.direction", myCameraFront.x, myCameraFront.y, myCameraFront.z);
+		myLightingShader->SetUniform1i("spotLight.cutOff", cos(Math::ToRadians(12.5f)));
+		myLightingShader->SetUniform1i("spotLight.outerCutOff", cos(Math::ToRadians(17.5f)));
+		myLightingShader->SetUniform3f("spotLight.ambient", 0.1f, 0.1f, 0.1f);
+		myLightingShader->SetUniform3f("spotLight.diffuse", 0.8f, 0.8f, 0.8f);
+		myLightingShader->SetUniform3f("spotLight.specular", 1.0f, 1.0f, 1.0f);
+		myLightingShader->SetUniform1f("spotLight.constantTerm", 1.0f);
+		myLightingShader->SetUniform1f("spotLight.linearTerm", 0.09f);
+		myLightingShader->SetUniform1f("spotLight.quadraticTerm", 0.032f);
 
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "ViewPosition"), myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
+		myLightingShader->SetUniform3f("ViewPosition", myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
 
 
-		glUniform1i(glGetUniformLocation(myLightingShader->GetID(), "material.diffuse"), 0);
-		glUniform1i(glGetUniformLocation(myLightingShader->GetID(), "material.specular"), 1);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "material.shininess"), 32.0f);
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "directionalLight.ambient"), 0.2f, 0.2f, 0.2f);
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "directionalLight.diffuse"), 0.5f, 0.5f, 0.5f);
-		glUniform3f(glGetUniformLocation(myLightingShader->GetID(), "directionalLight.specular"), 1.0f, 1.0f, 1.0f);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "light.constantTerm"), 1.0f);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "light.linearTerm"), 0.09f);
-		glUniform1f(glGetUniformLocation(myLightingShader->GetID(), "light.quadraticTerm"), 0.032f);
+		myLightingShader->SetUniform1i("material.diffuse", 0);
+		myLightingShader->SetUniform1i("material.specular", 1);
+		myLightingShader->SetUniform1f("material.shininess", 32.0f);
+		myLightingShader->SetUniform3f("directionalLight.ambient", 0.2f, 0.2f, 0.2f);
+		myLightingShader->SetUniform3f("directionalLight.diffuse", 0.5f, 0.5f, 0.5f);
+		myLightingShader->SetUniform3f("directionalLight.specular", 1.0f, 1.0f, 1.0f);
+		myLightingShader->SetUniform1f("light.constantTerm", 1.0f);
+		myLightingShader->SetUniform1f("light.linearTerm", 0.09f);
+		myLightingShader->SetUniform1f("light.quadraticTerm", 0.032f);
 
 		// Model Matrix
 		Matrix4x4 tempModelMatrix = Matrix4x4::Identity();
@@ -144,14 +155,17 @@ public:
 		Matrix4x4 tempProjectionMatrix;
 		tempProjectionMatrix = Matrix4x4::Perspective(Math::ToRadians(70.0f), GetAspectRatio(), 0.1f, 100.0f);
 
-		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ModelMatrix"), 1, false, tempModelMatrix.GetValuePtr());
-		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ViewMatrix"), 1, false, tempViewMatrix.GetValuePtr());
-		glUniformMatrix4fv(glGetUniformLocation(myLightingShader->GetID(), "ProjectionMatrix"), 1, false, tempProjectionMatrix.GetValuePtr());
+		myLightingShader->SetUniformMatrix4x4("ModelMatrix", tempModelMatrix);
+		myLightingShader->SetUniformMatrix4x4("ViewMatrix", tempViewMatrix);
+		myLightingShader->SetUniformMatrix4x4("ProjectionMatrix", tempProjectionMatrix);
 
 		aModel.Render(*myLightingShader);
 
 		// Font rendering
+		myText->Text() = std::to_string(GetFPS()) + " FPS";
 		myText->Render(*this);
+
+		myImage.Render(*this);
 	}
 
 private:
@@ -172,13 +186,15 @@ private:
 	float myYaw = -90.0f;
 	float myRoll;
 
-
+	UIImage myImage;
 
 	UIText* myText;
 
 	Shader* myLightingShader;
 	Shader* myLightCubeShader;
-	Shader myGlyphShader;
+	Shader* myUIImageShader;
+
+	Texture* myTexture;
 
 	Vector3D myLightPosition = { 1.2f, 1.0f, 2.0f };
 	Model aModel;
