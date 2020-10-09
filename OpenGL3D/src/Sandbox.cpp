@@ -11,14 +11,7 @@
 #include "ui/UIImage.h"
 #include "graphics/Shader.h"
 
-#include "vendor/glm/glm.hpp"
-#include "vendor/glm/gtc/matrix_transform.hpp"
-#include "vendor/glm/gtc/type_ptr.hpp"
-#include "ui/Character.h"
-
 #include "data/Model.h"
-
-#include <map>
 
 #include <iostream>
 
@@ -34,7 +27,6 @@ public:
 		myLightCubeShader = new Shader("res/shaders/LightCubeShader.glsl");
 		myUIImageShader = new Shader("res/shaders/UIImageShader.glsl");
 
-
 		myText = new UIText("Beep beep boop", { 10, 10, 0 }, { 255, 255, 255 });
 
 		myTexture = new Texture("res/textures/wood_box.png");
@@ -43,9 +35,10 @@ public:
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
+		glfwSwapInterval(0);
 		glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		aModel = Model("res/models/Nanosuit/nanosuit.obj");
+		aModel = Model("res/models/Backpack/backpack.obj", true);
 	}
 
 	void OnUpdate(const float& aDeltaTime) override
@@ -131,7 +124,6 @@ public:
 
 		myLightingShader->SetUniform3f("ViewPosition", myCameraPosition.x, myCameraPosition.y, myCameraPosition.z);
 
-
 		myLightingShader->SetUniform1i("material.diffuse", 0);
 		myLightingShader->SetUniform1i("material.specular", 1);
 		myLightingShader->SetUniform1f("material.shininess", 32.0f);
@@ -160,27 +152,25 @@ public:
 
 		aModel.Render(*myLightingShader);
 
-		// Font rendering
+		// UI Overlay
+		glDisable(GL_DEPTH_TEST);
 
+		// Font rendering
+		myImage.Position() = { 50, 50, 0 };
 		myImage.Render(*this);
 
 		myText->Text() = std::to_string(GetFPS()) + " FPS";
 		myText->Render(*this);
+
+		glEnable(GL_DEPTH_TEST);
 	}
 
 private:
-	std::map<char, Character> myCharacters;
-
 	Vector2D myLastMousePosition;
 
 	Vector3D myCameraPosition = { 0.0f, 0.0f, 3.0f };
 	Vector3D myCameraUp = { 0.0f, 1.0f, 0.0f };
 	Vector3D myCameraFront = { 0.0f, 0.0f, -1.0f };
-
-	unsigned int myVAO;
-	unsigned int myVBO;
-
-	int myLargestCharacterSize;
 
 	float myPitch;
 	float myYaw = -90.0f;

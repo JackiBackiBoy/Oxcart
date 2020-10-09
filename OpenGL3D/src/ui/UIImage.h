@@ -9,7 +9,7 @@ class UIImage : public UIElement
 {
 public:
 	UIImage();
-	UIImage(const Texture& aTexture, const Vector3D& aPosition) : myTexture(aTexture), UIElement(aPosition) {};
+	UIImage(const Texture& aTexture, const Vector3D& aPosition) : myTexture(aTexture), myVAO(0), myVBO(0), myEBO(0), UIElement(aPosition) {};
 
 	void Render(Window& aWindow) override;
 
@@ -21,5 +21,6 @@ private:
 	Texture myTexture;
 	unsigned int myVAO;
 	unsigned int myVBO;
+	unsigned int myEBO;
 };
 #endif

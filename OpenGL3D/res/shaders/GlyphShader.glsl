@@ -7,7 +7,7 @@ uniform mat4 ProjectionMatrix;
 
 void main()
 {
-	gl_Position = ProjectionMatrix * vec4(aVertex.xy, 0.0, 1.0);
+	gl_Position = ProjectionMatrix * vec4(aVertex.xy, 1.0, 1.0);
 	TexCoords = aVertex.zw;
 }
 
@@ -21,6 +21,6 @@ uniform vec4 TextColor;
 
 void main()
 {
-	vec4 tempSampled = vec4(1.0, 1.0, 1.0, texture(Text, TexCoords).r);
+	vec4 tempSampled = vec4(1.0, 1.0, 1.0, texture2D(Text, TexCoords).r);
 	FragColor = TextColor * tempSampled;
 }

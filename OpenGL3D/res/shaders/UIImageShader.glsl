@@ -7,7 +7,7 @@ uniform mat4 ProjectionMatrix;
 
 void main()
 {
-	gl_Position = ProjectionMatrix * vec4(aVertex.xy, 0.0, 1.0);
+	gl_Position = ProjectionMatrix * vec4(aVertex.xy, 1.0, 1.0);
 	TexCoords = aVertex.zw;
 }
 
@@ -20,5 +20,5 @@ uniform sampler2D Texture;
 
 void main()
 {
-	FragColor = texture(Texture, TexCoords);
+	FragColor = texture2D(Texture, TexCoords);
 }

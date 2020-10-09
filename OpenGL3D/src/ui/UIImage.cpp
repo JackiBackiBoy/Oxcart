@@ -6,17 +6,28 @@ UIImage::UIImage()
 
 void UIImage::Render(Window& aWindow)
 {
-	// A Quad
-	float tempVertices[6][4] =
-	{
-	    0,  0, 0.0f, 1.0f, // top left
-	    0, 200, 0.0,  0.0f, // bottom left
-		200, 200, 1.0,  0.0f, // bottom right
+	//// A Quad
+	//float tempVertices[6][4] =
+	//{
+	//    myPosition.x,  myPosition.y, 0.0f, 1.0f, // top left
+	//    myPosition.x, myTexture.GetHeight(), 0.0,  0.0f, // bottom left
+	//	myTexture.GetWidth(), myTexture.GetHeight(), 1.0,  0.0f, // bottom right
 
-	    0,  0, 0.0f, 1.0f, // top left
-		200, 200, 1.0,  0.0f, // bottom right
-		200, 0, 1.0f, 1.0f, // top right
+	//    myPosition.x, myPosition.y, 0.0f, 1.0f, // top left
+	//	myTexture.GetWidth(), myTexture.GetHeight(), 1.0,  0.0f, // bottom right
+	//	myTexture.GetWidth(), myPosition.x, 1.0f, 1.0f, // top right
+	//};
+
+	float tempVertices[4][4] =
+	{
+		myPosition.x,  myPosition.y, 0.0f, 1.0f, // top left
+		myPosition.x, myTexture.GetHeight(), 0.0,  0.0f, // bottom left
+		myTexture.GetWidth(), myTexture.GetHeight(), 1.0,  0.0f, // bottom right
+		myTexture.GetWidth(), myPosition.x, 1.0f, 1.0f, // top right
 	};
+
+	unsigned int	tempIndices[6] = { 0, 1, 2,
+						   0, 2, 3 };
 
 	myShader.Use();
 
@@ -25,11 +36,19 @@ void UIImage::Render(Window& aWindow)
 
 	glGenVertexArrays(1, &myVAO);
 	glGenBuffers(1, &myVBO);
+	glGenBuffers(1, &myEBO);
+	
+	// Element Buffer Object (EBO)
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), tempIndices, GL_STATIC_DRAW);
+
+	// Vertex Array Object (VAO)
 	glBindVertexArray(myVAO);
+	glBindBuffer(GL_VERTEX_ARRAY, myVAO);
+
+	// Vertex Buffer Object (VBO)
 	glBindBuffer(GL_ARRAY_BUFFER, myVBO);
 	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), tempVertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_VERTEX_ARRAY, myVAO);
 
 	// Position and texture coordinates
 	glEnableVertexAttribArray(0);
@@ -38,7 +57,8 @@ void UIImage::Render(Window& aWindow)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, myTexture.GetID());
 
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, tempIndices);
+	//glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	glBindVertexArray(0);
 	glActiveTexture(GL_TEXTURE0);

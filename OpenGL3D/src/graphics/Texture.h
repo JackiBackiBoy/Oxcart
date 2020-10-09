@@ -12,6 +12,8 @@ public:
 
 	void Bind(const unsigned int& aTextureSlot) const;
 
+	inline int GetWidth() const { return myWidth; }
+	inline int GetHeight() const { return myHeight; }
 	inline unsigned int GetID() const { return myID; }
 
 private:
