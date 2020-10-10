@@ -30,8 +30,8 @@ public:
 		myText = new UIText("Beep beep boop", { 10, 10, 0 }, { 255, 255, 255 });
 
 		myTexture = new Texture("res/textures/wood_box.png");
-		myImage = UIImage(*myTexture, { 0, 0, 0 });
-		myImage.myShader = *myUIImageShader;
+		myImage = new UIImage(*myTexture, { 0, 0, 0 });
+		myImage->myShader = *myUIImageShader;
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -156,8 +156,8 @@ public:
 		glDisable(GL_DEPTH_TEST);
 
 		// Font rendering
-		myImage.Position() = { 50, 50, 0 };
-		myImage.Render(*this);
+		myImage->Position() = { 50, 50, 0 };
+		myImage->Render(*this);
 
 		myText->Text() = std::to_string(GetFPS()) + " FPS";
 		myText->Render(*this);
@@ -176,7 +176,7 @@ private:
 	float myYaw = -90.0f;
 	float myRoll;
 
-	UIImage myImage;
+	UIImage* myImage;
 
 	UIText* myText;
 

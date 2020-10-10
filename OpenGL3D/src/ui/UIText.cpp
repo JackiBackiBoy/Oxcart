@@ -8,6 +8,9 @@
 UIText::UIText(const std::string& someText, const Vector3D& aPosition, const Color& aColor)
 	: myText(someText), myColor(aColor), UIElement(aPosition)
 {
+	glGenVertexArrays(1, &myVAO);
+	glGenBuffers(1, &myVBO);
+
 	myGlyphShader = Shader("res/shaders/GlyphShader.glsl");
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alingment
@@ -74,9 +77,6 @@ void UIText::Render(Window& aWindow)
 	glUseProgram(myGlyphShader.GetID());
 	Matrix4x4 tempProjectionMatrix = Matrix4x4::Ortographic(0.0f, aWindow.GetScreenWidth(), aWindow.GetScreenHeight(), 0.0f);
 	glUniformMatrix4fv(glGetUniformLocation(myGlyphShader.GetID(), "ProjectionMatrix"), 1, false, tempProjectionMatrix.GetValuePtr());
-
-	glGenVertexArrays(1, &myVAO);
-	glGenBuffers(1, &myVBO);
 
 	glBindVertexArray(myVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, myVBO);

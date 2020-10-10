@@ -38,5 +38,4 @@ private:
 	unsigned int myID;
 	int myUniformLocation;
 };
-
 #endif

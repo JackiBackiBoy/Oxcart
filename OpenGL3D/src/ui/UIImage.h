@@ -8,8 +8,8 @@
 class UIImage : public UIElement
 {
 public:
-	UIImage();
-	UIImage(const Texture& aTexture, const Vector3D& aPosition) : myTexture(aTexture), myVAO(0), myVBO(0), myEBO(0), UIElement(aPosition) {};
+	UIImage() {};
+	UIImage(const Texture& aTexture, const Vector3D& aPosition);
 
 	void Render(Window& aWindow) override;
 
