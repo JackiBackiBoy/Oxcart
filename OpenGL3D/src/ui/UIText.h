@@ -12,8 +12,8 @@
 class UIText : public UIElement
 {
 public:
-	UIText() {};
-	UIText(const std::string& someText, const Vector3D& aPosition, const Color& aColor);
+	UIText() : myText(""), myColor{ 0, 0, 0 } {};
+	UIText(const std::string& someText, const Vector2D& aPosition, const Color& aColor);
 
 	inline std::string& Text() { return myText; }
 	inline Color& AccessColor() { return myColor; }

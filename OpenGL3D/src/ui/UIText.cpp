@@ -5,7 +5,7 @@
 #include "ft2build.h"
 #include FT_FREETYPE_H
 
-UIText::UIText(const std::string& someText, const Vector3D& aPosition, const Color& aColor)
+UIText::UIText(const std::string& someText, const Vector2D& aPosition, const Color& aColor)
 	: myText(someText), myColor(aColor), UIElement(aPosition)
 {
 	glGenVertexArrays(1, &myVAO);

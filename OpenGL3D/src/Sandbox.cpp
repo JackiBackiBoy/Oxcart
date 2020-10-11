@@ -27,10 +27,11 @@ public:
 		myLightCubeShader = new Shader("res/shaders/LightCubeShader.glsl");
 		myUIImageShader = new Shader("res/shaders/UIImageShader.glsl");
 
-		myText = new UIText("Beep beep boop", { 10, 10, 0 }, { 255, 255, 255 });
+		myText = new UIText("Beep beep boop", { 10, 10 }, { 255, 255, 255 });
+		myFOV = 70.0f;
 
 		myTexture = new Texture("res/textures/wood_box.png");
-		myImage = new UIImage(*myTexture, { 0, 0, 0 });
+		myImage = new UIImage(*myTexture, { 0, 0 });
 		myImage->myShader = *myUIImageShader;
 
 		glEnable(GL_DEPTH_TEST);
@@ -144,7 +145,7 @@ public:
 
 		// Projection Matrix
 		Matrix4x4 tempProjectionMatrix;
-		tempProjectionMatrix = Matrix4x4::Perspective(Math::ToRadians(70.0f), GetAspectRatio(), 0.1f, 100.0f);
+		tempProjectionMatrix = Matrix4x4::Perspective(Math::ToRadians(myFOV), GetAspectRatio(), 0.1f, 100.0f);
 
 		myLightingShader->SetUniformMatrix4x4("ModelMatrix", tempModelMatrix);
 		myLightingShader->SetUniformMatrix4x4("ViewMatrix", tempViewMatrix);
@@ -156,7 +157,7 @@ public:
 		glDisable(GL_DEPTH_TEST);
 
 		// Font rendering
-		myImage->Position() = { 50, 50, 0 };
+		myImage->Position() = { 50, 50 };
 		myImage->Render(*this);
 
 		myText->Text() = std::to_string(GetFPS()) + " FPS";
@@ -175,6 +176,7 @@ private:
 	float myPitch;
 	float myYaw = -90.0f;
 	float myRoll;
+	float myFOV;
 
 	UIImage* myImage;
 
@@ -192,5 +194,5 @@ private:
 
 Window* BuildWindow()
 {
-	return new Sandbox("Oxcart | Made by Jack Henrikson", 1920, 1080);
+	return new Sandbox("Oxcart", 1920, 1080);
 }
