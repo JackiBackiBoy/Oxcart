@@ -172,6 +172,7 @@
     <ClCompile Include="src\math\Vector4D.cpp" />
     <ClCompile Include="src\Sandbox.cpp" />
     <ClCompile Include="src\ui\Color.cpp" />
+    <ClCompile Include="src\ui\UIButton.cpp" />
     <ClCompile Include="src\ui\UIElement.cpp" />
     <ClCompile Include="src\ui\UIImage.cpp" />
     <ClCompile Include="src\ui\UIText.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="src\math\Vector4D.h" />
     <ClInclude Include="src\ui\Character.h" />
     <ClInclude Include="src\ui\Color.h" />
+    <ClInclude Include="src\ui\UIButton.h" />
     <ClInclude Include="src\ui\UIElement.h" />
     <ClInclude Include="src\ui\UIImage.h" />
     <ClInclude Include="src\ui\UIText.h" />

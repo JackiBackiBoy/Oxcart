@@ -17,8 +17,9 @@ in vec2 TexCoords;
 out vec4 FragColor;
 
 uniform sampler2D Texture;
+uniform vec4 ColorOverlay;
 
 void main()
 {
-	FragColor = texture2D(Texture, TexCoords);
+	FragColor = texture2D(Texture, TexCoords) * ColorOverlay;
 }

@@ -9,11 +9,18 @@
 
 #include "ui/UIText.h"
 #include "ui/UIImage.h"
+#include "ui/UIButton.h"
+
 #include "graphics/Shader.h"
 
 #include "data/Model.h"
 
 #include <iostream>
+
+enum class GameState
+{
+	Playing, Paused
+};
 
 class Sandbox : public Window
 {
@@ -34,6 +41,8 @@ public:
 		myImage = new UIImage(*myTexture, { 0, 0 });
 		myImage->myShader = *myUIImageShader;
 
+		myButton = new UIButton("Beep boop", { 0, 0 }, 400, 300, { 255, 255, 255 }, { 120, 100, 0 });
+
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
 		glfwSwapInterval(0);
@@ -44,62 +53,85 @@ public:
 
 	void OnUpdate(const float& aDeltaTime) override
 	{
-		// Forward
-		if (Keyboard::IsKeyDown(KeyCode::W, myRawWindow))
+		if (Keyboard::IsKeyDownOnce(KeyCode::Escape, myRawWindow))
 		{
-			myCameraPosition += myCameraFront * 2.0f * aDeltaTime;
-		}
-		// Backward
-		if (Keyboard::IsKeyDown(KeyCode::S, myRawWindow))
-		{
-			myCameraPosition -= myCameraFront * 2.0f * aDeltaTime;
-		}
-
-		// Left
-		if (Keyboard::IsKeyDown(KeyCode::A, myRawWindow))
-		{
-			myCameraPosition -= Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
-		}
-		// Right
-		if (Keyboard::IsKeyDown(KeyCode::D, myRawWindow))
-		{
-			myCameraPosition += Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
+			if (myGameState == GameState::Playing)
+			{
+				myGameState = GameState::Paused;
+			}
+			else if (myGameState == GameState::Paused)
+			{
+				myGameState = GameState::Playing;
+			}
 		}
 
-		// Up
-		if (Keyboard::IsKeyDown(KeyCode::Space, myRawWindow))
+		if (myGameState == GameState::Playing)
 		{
-			myCameraPosition.y += 2.0f * aDeltaTime;
+			glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+			myFOV += -Mouse::GetScrollWheel() * 2.0f;
+
+			// Forward
+			if (Keyboard::IsKeyDown(KeyCode::W, myRawWindow))
+			{
+				myCameraPosition += myCameraFront * 2.0f * aDeltaTime;
+			}
+			// Backward
+			if (Keyboard::IsKeyDown(KeyCode::S, myRawWindow))
+			{
+				myCameraPosition -= myCameraFront * 2.0f * aDeltaTime;
+			}
+
+			// Left
+			if (Keyboard::IsKeyDown(KeyCode::A, myRawWindow))
+			{
+				myCameraPosition -= Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
+			}
+			// Right
+			if (Keyboard::IsKeyDown(KeyCode::D, myRawWindow))
+			{
+				myCameraPosition += Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
+			}
+
+			// Up
+			if (Keyboard::IsKeyDown(KeyCode::Space, myRawWindow))
+			{
+				myCameraPosition.y += 2.0f * aDeltaTime;
+			}
+			// Down
+			if (Keyboard::IsKeyDown(KeyCode::LeftControl, myRawWindow))
+			{
+				myCameraPosition.y -= 2.0f * aDeltaTime;
+			}
+
+			Vector2D tempCurrentMousePosition = Mouse::GetPosition(myRawWindow);
+
+			float tempDeltaMouseX = tempCurrentMousePosition.x - myLastMousePosition.x;
+			float tempDeltaMouseY = myLastMousePosition.y - tempCurrentMousePosition.y;
+			myLastMousePosition = tempCurrentMousePosition;
+
+			myYaw += tempDeltaMouseX * 0.1f;
+			myPitch += tempDeltaMouseY * 0.1f;
+
+			if (myPitch > 89.0f)
+			{
+				myPitch = 89.0f;
+			}
+			if (myPitch < -89.0f)
+			{
+				myPitch = -89.0f;
+			}
+
+			Vector3D tempDirection;
+			tempDirection.x = cos(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
+			tempDirection.y = sin(Math::ToRadians(myPitch));
+			tempDirection.z = sin(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
+			myCameraFront = Vector3D::Normalize(tempDirection);
 		}
-		// Down
-		if (Keyboard::IsKeyDown(KeyCode::LeftControl, myRawWindow))
+		else if (myGameState == GameState::Paused)
 		{
-			myCameraPosition.y -= 2.0f * aDeltaTime;
+			glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
-
-		Vector2D tempCurrentMousePosition = Mouse::GetPosition(myRawWindow);
-
-		float tempDeltaMouseX = tempCurrentMousePosition.x - myLastMousePosition.x;
-		float tempDeltaMouseY = myLastMousePosition.y - tempCurrentMousePosition.y;
-		myLastMousePosition = tempCurrentMousePosition;
-
-		myYaw += tempDeltaMouseX * 0.1f;
-		myPitch += tempDeltaMouseY * 0.1f;
-
-		if (myPitch > 89.0f)
-		{
-			myPitch = 89.0f;
-		}
-		if (myPitch < -89.0f)
-		{
-			myPitch= -89.0f;
-		}
-
-		Vector3D tempDirection;
-		tempDirection.x = cos(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
-		tempDirection.y = sin(Math::ToRadians(myPitch));
-		tempDirection.z = sin(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
-		myCameraFront = Vector3D::Normalize(tempDirection);
 	}
 
 	void OnRender(const float& aDeltaTime) override
@@ -163,6 +195,8 @@ public:
 		myText->Text() = std::to_string(GetFPS()) + " FPS";
 		myText->Render(*this);
 
+		myButton->Render(*this);
+
 		glEnable(GL_DEPTH_TEST);
 	}
 
@@ -181,12 +215,15 @@ private:
 	UIImage* myImage;
 
 	UIText* myText;
+	UIButton* myButton;
 
 	Shader* myLightingShader;
 	Shader* myLightCubeShader;
 	Shader* myUIImageShader;
 
 	Texture* myTexture;
+
+	GameState myGameState = GameState::Playing;
 
 	Vector3D myLightPosition = { 1.2f, 1.0f, 2.0f };
 	Model aModel;

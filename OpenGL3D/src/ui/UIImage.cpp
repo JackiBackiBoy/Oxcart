@@ -1,7 +1,7 @@
 #include "UIImage.h"
 
-UIImage::UIImage(const Texture& aTexture, const Vector2D& aPosition, const Vector2D& aScale)
-	: myTexture(aTexture), myScale(aScale), myVAO(0), myVBO(0), myEBO(0), UIElement(aPosition)
+UIImage::UIImage(const Texture& aTexture, const Vector2D& aPosition, const Vector2D& aScale, const Color& aColor)
+	: myTexture(aTexture), myScale(aScale), myColor(aColor), myVAO(0), myVBO(0), myEBO(0), UIElement(aPosition)
 {
 	myVertices =
 	{
@@ -36,15 +36,6 @@ UIImage::UIImage(const Texture& aTexture, const Vector2D& aPosition, const Vecto
 
 void UIImage::Render(Window& aWindow)
 {
-	// A Quad
-	//myVertices =
-	//{
-	//	myPosition.x,  myPosition.y, 0.0f, 1.0f, // top left
-	//	myPosition.x, (float)myTexture.GetHeight(), 0.0,  0.0f, // bottom left
-	//	(float)myTexture.GetWidth(), (float)myTexture.GetHeight(), 1.0,  0.0f, // bottom right
-	//	(float)myTexture.GetWidth(), myPosition.x, 1.0f, 1.0f, // top right
-	//};
-
 	// Update the vertices in case the image has either been moved or resized
 	myVertices[0] = myPosition.x;
 	myVertices[1] = myPosition.y;
@@ -67,6 +58,9 @@ void UIImage::Render(Window& aWindow)
 
 	Matrix4x4 tempProjectionMatrix = Matrix4x4::Ortographic(0, aWindow.GetScreenWidth(), aWindow.GetScreenHeight(), 0);
 	myShader.SetUniformMatrix4x4("ProjectionMatrix", tempProjectionMatrix);
+
+	Vector4D tempNormalizedColor = Color::Normalize(myColor);
+	myShader.SetUniform4f("ColorOverlay", tempNormalizedColor.x, tempNormalizedColor.y, tempNormalizedColor.z, tempNormalizedColor.w);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, myTexture.GetID());

@@ -1,2 +1,6 @@
-﻿  Mouse.cpp
+﻿  Sandbox.cpp
+C:\Development\Oxcart\OpenGL3D\src\core\Window.h(19,47): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+C:\Development\Oxcart\OpenGL3D\src\core\Window.h(20,48): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+C:\Development\Oxcart\OpenGL3D\src\Sandbox.cpp(149,57): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+C:\Development\Oxcart\OpenGL3D\src\Sandbox.cpp(150,62): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
   OpenGL3D.vcxproj -> C:\Development\Oxcart\Debug\OpenGL3D.exe

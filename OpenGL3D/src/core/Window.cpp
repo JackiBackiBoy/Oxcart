@@ -1,5 +1,7 @@
 #include "Window.h"
 #include <iostream>
+#include "input/Mouse.h"
+#include "input/Keyboard.h"
 
 Window::Window(const std::string& aTitle, const int& aScreenWidth, const int& aScreenHeight)
 	: myTitle(aTitle), myScreenWidth(aScreenWidth), myScreenHeight(aScreenHeight), myRawWindow(nullptr)
@@ -35,6 +37,8 @@ void Window::Run()
 		std::cout << "Error: GLEW couldn't be loaded!" << std::endl;
 	}
 
+	Mouse::BindToWindow(myRawWindow);
+
 	float tempLastTime = 0.0f;
 	float tempLastFPSTime = 0.0f;
 	int tempElapsedFrames = 0;
@@ -67,7 +71,7 @@ void Window::Run()
 
 		// OnUpdate (called every frame)
 		OnUpdate(tempDeltaTime);
-		Window::OnRender(tempDeltaTime);
+		Window::OnUpdate(tempDeltaTime);
 
 		glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -90,7 +94,7 @@ void Window::OnStart()
 
 void Window::OnUpdate(const float& aDeltaTime)
 {
-
+	Keyboard::UpdateKeys(myRawWindow);
 }
 
 void Window::OnRender(const float& aDeltaTime)
