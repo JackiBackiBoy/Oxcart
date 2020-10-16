@@ -41,7 +41,7 @@ public:
 		myImage = new UIImage(*myTexture, { 0, 0 });
 		myImage->myShader = *myUIImageShader;
 
-		myButton = new UIButton("Beep boop", { 0, 0 }, 400, 300, { 255, 255, 255 }, { 120, 100, 0 });
+		myButton = new UIButton("Play", { 100, 100 }, 300, 100, { 255, 255, 255 }, { 120, 100, 0 });
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -189,11 +189,11 @@ public:
 		glDisable(GL_DEPTH_TEST);
 
 		// Font rendering
-		myImage->Position() = { 50, 50 };
-		myImage->Render(*this);
+		//myImage->Position() = { 50, 50 };
+		//myImage->Render(*this);
 
-		myText->Text() = std::to_string(GetFPS()) + " FPS";
-		myText->Render(*this);
+		//myText->Text() = std::to_string(GetFPS()) + " FPS";
+		//myText->Render(*this);
 
 		myButton->Render(*this);
 

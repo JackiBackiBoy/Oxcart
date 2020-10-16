@@ -18,5 +18,7 @@ private:
 	UIImage myButtonBackground;
 	int myWidth;
 	int myHeight;
+	bool myIsHovered;
+	void(*myOnClick)();
 };
 #endif

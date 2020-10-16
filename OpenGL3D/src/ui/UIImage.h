@@ -18,6 +18,8 @@ public:
 
 	inline Texture& AccessTexture() { return myTexture; }
 	inline Vector2D& Scale() { return myScale; }
+	inline int GetWidth() const { return myTexture.GetWidth() * myScale.x; }
+	inline int GetHeight() const { return myTexture.GetHeight() * myScale.y; }
 
 	Shader myShader;
 

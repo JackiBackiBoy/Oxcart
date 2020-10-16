@@ -25,7 +25,7 @@ UIText::UIText(const std::string& someText, const Vector2D& aPosition, const Col
 	}
 
 	FT_Face tempFace;
-	if (FT_New_Face(tempFT, "res/fonts/arial.ttf", 0, &tempFace))
+	if (FT_New_Face(tempFT, "res/fonts/comic.ttf", 0, &tempFace))
 	{
 		std::cout << "Error (Freetype): Could not load the desired font." << std::endl;
 		exit(-1);
@@ -98,6 +98,8 @@ void UIText::Render(Window& aWindow)
 	int tempY = (int)myPosition.y;
 	float tempScale = 1.0f;
 
+	myTextWidth = 0;
+
 	for (tempIterator = myText.begin(); tempIterator != myText.end(); tempIterator++)
 	{
 		Character tempCharacter = myCharacters[*tempIterator];
@@ -107,6 +109,9 @@ void UIText::Render(Window& aWindow)
 
 		float tempWidth = tempCharacter.sizeX * tempScale;
 		float tempHeight = tempCharacter.sizeY * tempScale;
+
+		myTextWidth += (tempCharacter.advanceOffset >> 6) * tempScale;
+		myTextHeight = tempHeight > myTextHeight ? tempHeight : myTextHeight;
 
 		float tempVertices[6][4] =
 		{

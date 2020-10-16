@@ -18,6 +18,9 @@ public:
 	inline std::string& Text() { return myText; }
 	inline Color& AccessColor() { return myColor; }
 
+	inline int GetTextWidth() const { return myTextWidth; }
+	inline int GetTextHeight() const { return myTextHeight; }
+
 	void Render(Window& aWindow) override;
 
 private:
@@ -26,6 +29,8 @@ private:
 
 	std::map<char, Character> myCharacters;
 	int myLargestCharacterSize;
+	int myTextWidth;
+	int myTextHeight;
 
 	Shader myGlyphShader;
 
