@@ -73,12 +73,15 @@ void Window::Run()
 		OnUpdate(tempDeltaTime);
 		Window::OnUpdate(tempDeltaTime);
 
-		glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// OnRender (called every frame)
 		OnRender(tempDeltaTime);
 		Window::OnRender(tempDeltaTime);
+
+		Keyboard::UpdateKeys(myRawWindow);
+		Mouse::UpdateButtons(myRawWindow);
 
 		glfwSwapBuffers(myRawWindow);
 		glfwPollEvents();
@@ -94,7 +97,7 @@ void Window::OnStart()
 
 void Window::OnUpdate(const float& aDeltaTime)
 {
-	Keyboard::UpdateKeys(myRawWindow);
+	
 }
 
 void Window::OnRender(const float& aDeltaTime)

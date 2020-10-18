@@ -20,6 +20,7 @@ public:
 	inline float GetScreenHeight() const { return myScreenHeight; }
 	inline float GetAspectRatio() const { return (float)myScreenWidth / myScreenHeight; }
 	inline int GetFPS() { return myFPS; }
+	inline GLFWwindow* GetRawWindow() const { return myRawWindow; }
 
 private:
 	int myFPS;

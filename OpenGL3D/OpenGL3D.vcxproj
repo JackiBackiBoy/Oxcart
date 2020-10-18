@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="src\components\Camera.cpp" />
     <ClCompile Include="src\components\Component.cpp" />
+    <ClCompile Include="src\components\Hitbox2D.cpp" />
     <ClCompile Include="src\components\Transform.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
     <ClCompile Include="src\data\Mesh.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\math\Math.cpp" />
     <ClCompile Include="src\math\Matrix4x4.cpp" />
+    <ClCompile Include="src\math\Rectangle2D.cpp" />
     <ClCompile Include="src\math\Triangle.cpp" />
     <ClCompile Include="src\math\Vector2D.cpp" />
     <ClCompile Include="src\math\Vector3D.cpp" />
@@ -182,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="src\components\Camera.h" />
     <ClInclude Include="src\components\Component.h" />
+    <ClInclude Include="src\components\Hitbox2D.h" />
     <ClInclude Include="src\components\Transform.h" />
     <ClInclude Include="src\core\Window.h" />
     <ClInclude Include="src\data\Mesh.h" />
@@ -195,12 +198,14 @@
     <ClInclude Include="src\input\Mouse.h" />
     <ClInclude Include="src\math\Math.h" />
     <ClInclude Include="src\math\Matrix4x4.h" />
+    <ClInclude Include="src\math\Rectangle2D.h" />
     <ClInclude Include="src\math\Triangle.h" />
     <ClInclude Include="src\math\Vector2D.h" />
     <ClInclude Include="src\math\Vector3D.h" />
     <ClInclude Include="src\math\Vector4D.h" />
     <ClInclude Include="src\ui\Character.h" />
     <ClInclude Include="src\ui\Color.h" />
+    <ClInclude Include="src\input\MouseButton.h" />
     <ClInclude Include="src\ui\UIButton.h" />
     <ClInclude Include="src\ui\UIElement.h" />
     <ClInclude Include="src\ui\UIImage.h" />
@@ -491,6 +496,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\GlyphShader.glsl" />
+    <None Include="res\shaders\HoverShader.glsl" />
     <None Include="res\shaders\LightCubeShader.glsl" />
     <None Include="res\shaders\LightingShader.glsl" />
     <None Include="res\shaders\ModelLoading.gsl" />

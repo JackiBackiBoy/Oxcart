@@ -42,6 +42,7 @@ public:
 		myImage->myShader = *myUIImageShader;
 
 		myButton = new UIButton("Play", { 100, 100 }, 300, 100, { 255, 255, 255 }, { 120, 100, 0 });
+		myButton->myHoverShader = Shader("res/shaders/HoverShader.glsl");
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -186,18 +187,21 @@ public:
 		aModel.Render(*myLightingShader);
 
 		// UI Overlay
-		glDisable(GL_DEPTH_TEST);
+		if (myGameState == GameState::Paused)
+		{
+			glDisable(GL_DEPTH_TEST);
 
-		// Font rendering
-		//myImage->Position() = { 50, 50 };
-		//myImage->Render(*this);
+			// Font rendering
+			myImage->Position() = { 50, 50 };
+			myImage->Render(*this);
 
-		//myText->Text() = std::to_string(GetFPS()) + " FPS";
-		//myText->Render(*this);
+			myText->Text() = std::to_string(GetFPS()) + " FPS";
+			myText->Render(*this);
 
-		myButton->Render(*this);
+			myButton->Render(*this);
 
-		glEnable(GL_DEPTH_TEST);
+			glEnable(GL_DEPTH_TEST);
+		}
 	}
 
 private:

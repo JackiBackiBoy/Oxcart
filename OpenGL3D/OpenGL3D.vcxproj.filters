@@ -96,6 +96,12 @@
     <ClCompile Include="src\ui\UIButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\components\Hitbox2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Rectangle2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector4D.h">
@@ -1022,6 +1028,15 @@
     <ClInclude Include="src\ui\UIButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\input\MouseButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Hitbox2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\Rectangle2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Shader.glsl" />
@@ -1438,5 +1453,6 @@
     <None Include="res\shaders\ModelLoading.gsl" />
     <None Include="res\shaders\GlyphShader.glsl" />
     <None Include="res\shaders\UIImageShader.glsl" />
+    <None Include="res\shaders\HoverShader.glsl" />
   </ItemGroup>
 </Project>

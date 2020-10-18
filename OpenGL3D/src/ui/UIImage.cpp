@@ -12,6 +12,24 @@ UIImage::UIImage(const Texture& aTexture, const Vector2D& aPosition, const Vecto
 	};
 
 	myIndices = { 0, 1, 2, 0, 2, 3 };
+}
+
+void UIImage::Render(Window& aWindow)
+{
+	// Update the vertices in case the image has either been moved or resized
+	myVertices[0] = myPosition.x;
+	myVertices[1] = myPosition.y;
+
+	myVertices[4] = myPosition.x;
+	myVertices[5] = myPosition.y + (float)myTexture.GetHeight() * myScale.y;
+
+	myVertices[8] = myPosition.x + (float)myTexture.GetWidth() * myScale.x;
+	myVertices[9] = myPosition.y + (float)myTexture.GetHeight() * myScale.y;
+
+	myVertices[12] = myPosition.x + (float)myTexture.GetWidth() * myScale.x;
+	myVertices[13] = myPosition.y;
+
+	myShader.Use();
 
 	glGenVertexArrays(1, &myVAO);
 	glGenBuffers(1, &myVBO);
@@ -32,29 +50,9 @@ UIImage::UIImage(const Texture& aTexture, const Vector2D& aPosition, const Vecto
 	// Position and texture coordinates
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 4, GL_FLOAT, false, sizeof(float) * 4, 0);
-}
-
-void UIImage::Render(Window& aWindow)
-{
-	// Update the vertices in case the image has either been moved or resized
-	myVertices[0] = myPosition.x;
-	myVertices[1] = myPosition.y;
-
-	myVertices[4] = myPosition.x;
-	myVertices[5] = myPosition.y + (float)myTexture.GetHeight() * myScale.y;
-
-	myVertices[8] = myPosition.x + (float)myTexture.GetWidth() * myScale.x;
-	myVertices[9] = myPosition.y + (float)myTexture.GetHeight() * myScale.y;
-
-	myVertices[12] = myPosition.x + (float)myTexture.GetWidth() * myScale.x;
-	myVertices[13] = myPosition.y;
 
 	// Binding
-	glBindVertexArray(myVAO);
-	glBindBuffer(GL_ARRAY_BUFFER, myVBO);
 	glBufferData(GL_ARRAY_BUFFER, 16 * sizeof(float), &myVertices[0], GL_STATIC_DRAW);
-
-	myShader.Use();
 
 	Matrix4x4 tempProjectionMatrix = Matrix4x4::Ortographic(0, aWindow.GetScreenWidth(), aWindow.GetScreenHeight(), 0);
 	myShader.SetUniformMatrix4x4("ProjectionMatrix", tempProjectionMatrix);
@@ -68,5 +66,8 @@ void UIImage::Render(Window& aWindow)
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, &myIndices[0]);
 
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
