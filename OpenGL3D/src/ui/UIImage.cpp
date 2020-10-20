@@ -12,6 +12,10 @@ UIImage::UIImage(const Texture& aTexture, const Vector2D& aPosition, const Vecto
 	};
 
 	myIndices = { 0, 1, 2, 0, 2, 3 };
+
+	glGenVertexArrays(1, &myVAO);
+	glGenBuffers(1, &myVBO);
+	glGenBuffers(1, &myEBO);
 }
 
 void UIImage::Render(Window& aWindow)
@@ -30,10 +34,6 @@ void UIImage::Render(Window& aWindow)
 	myVertices[13] = myPosition.y;
 
 	myShader.Use();
-
-	glGenVertexArrays(1, &myVAO);
-	glGenBuffers(1, &myVBO);
-	glGenBuffers(1, &myEBO);
 
 	// Element Buffer Object (EBO)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myEBO);

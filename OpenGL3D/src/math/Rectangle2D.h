@@ -15,6 +15,7 @@ public:
 
 	inline int GetWidth() const { return myWidth; }
 	inline int GetHeight() const { return myHeight; }
+	inline Vector2D& Position() { return myPosition; }
 
 private:
 	Vector2D myPosition;

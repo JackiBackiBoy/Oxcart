@@ -32,9 +32,14 @@ void UIButton::Render(Window& aWindow)
 		myOnClick();
 	}
 
+	myPosition = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
+	myRectangle.Position() = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
+
+	myButtonBackground.Position() = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
 	myButtonBackground.Render(aWindow);
 
-	myText.Position() = { myPosition.x + (float)myRectangle.GetWidth() / 2 - myText.GetTextWidth() / 2, myPosition.y + (float)myRectangle.GetHeight() / 2 - myText.GetTextHeight() / 2 };
+	//myText.Position() = { myPosition.x + (float)myRectangle.GetWidth() / 2 - myText.GetTextWidth() / 2, myPosition.y + (float)myRectangle.GetHeight() / 2 - myText.GetTextHeight() / 2 };
+	myText.Position() = aWindow.GetCenter() - Vector2D(myText.GetTextWidth() / 2, myText.GetTextHeight() / 2);
 	myText.Render(aWindow);
 
 	// Show hover effect
@@ -71,8 +76,6 @@ void UIButton::Render(Window& aWindow)
 		// Position and texture coordinates
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float) * 2, 0);
-
-		glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), &myVertices[0], GL_STATIC_DRAW);
 
 		Matrix4x4 tempProjectionMatrix = Matrix4x4::Ortographic(0, aWindow.GetScreenWidth(), aWindow.GetScreenHeight(), 0);
 		myHoverShader.SetUniformMatrix4x4("ProjectionMatrix", tempProjectionMatrix);

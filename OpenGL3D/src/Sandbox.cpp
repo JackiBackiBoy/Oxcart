@@ -16,11 +16,8 @@
 #include "data/Model.h"
 
 #include <iostream>
-
-enum class GameState
-{
-	Playing, Paused
-};
+#include "GameInfo.h"
+#include "GameActions.h"
 
 class Sandbox : public Window
 {
@@ -43,6 +40,7 @@ public:
 
 		myButton = new UIButton("Play", { 100, 100 }, 300, 100, { 255, 255, 255 }, { 120, 100, 0 });
 		myButton->myHoverShader = Shader("res/shaders/HoverShader.glsl");
+		myButton->SetOnClick(GameActions::ContinueGame);
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -56,17 +54,17 @@ public:
 	{
 		if (Keyboard::IsKeyDownOnce(KeyCode::Escape, myRawWindow))
 		{
-			if (myGameState == GameState::Playing)
+			if (GameInfo::myCurrentGameState == GameState::Playing)
 			{
-				myGameState = GameState::Paused;
+				GameInfo::myCurrentGameState = GameState::Paused;
 			}
-			else if (myGameState == GameState::Paused)
+			else if (GameInfo::myCurrentGameState == GameState::Paused)
 			{
-				myGameState = GameState::Playing;
+				GameInfo::myCurrentGameState = GameState::Playing;
 			}
 		}
 
-		if (myGameState == GameState::Playing)
+		if (GameInfo::myCurrentGameState == GameState::Playing)
 		{
 			glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -129,7 +127,7 @@ public:
 			tempDirection.z = sin(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
 			myCameraFront = Vector3D::Normalize(tempDirection);
 		}
-		else if (myGameState == GameState::Paused)
+		else if (GameInfo::myCurrentGameState == GameState::Paused)
 		{
 			glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
@@ -187,16 +185,9 @@ public:
 		aModel.Render(*myLightingShader);
 
 		// UI Overlay
-		if (myGameState == GameState::Paused)
+		if (GameInfo::myCurrentGameState == GameState::Paused)
 		{
 			glDisable(GL_DEPTH_TEST);
-
-			// Font rendering
-			myImage->Position() = { 50, 50 };
-			myImage->Render(*this);
-
-			myText->Text() = std::to_string(GetFPS()) + " FPS";
-			myText->Render(*this);
 
 			myButton->Render(*this);
 
@@ -226,14 +217,11 @@ private:
 	Shader* myUIImageShader;
 
 	Texture* myTexture;
-
-	GameState myGameState = GameState::Playing;
-
 	Vector3D myLightPosition = { 1.2f, 1.0f, 2.0f };
 	Model aModel;
 };
 
 Window* BuildWindow()
 {
-	return new Sandbox("Oxcart", 1920, 1080);
+	return new Sandbox("Oxcart", 1280, 720);
 }

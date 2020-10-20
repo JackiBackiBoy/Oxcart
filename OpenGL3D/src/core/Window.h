@@ -4,6 +4,7 @@
 #include <string>
 #include "GL/glew.h"
 #include <GLFW/glfw3.h>
+#include "math/Vector2D.h"
 
 class Window
 {
@@ -21,6 +22,8 @@ public:
 	inline float GetAspectRatio() const { return (float)myScreenWidth / myScreenHeight; }
 	inline int GetFPS() { return myFPS; }
 	inline GLFWwindow* GetRawWindow() const { return myRawWindow; }
+
+	inline Vector2D GetCenter() const { return { (float)myScreenWidth / 2, (float)myScreenHeight / 2 }; }
 
 private:
 	int myFPS;

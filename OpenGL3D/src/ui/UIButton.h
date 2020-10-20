@@ -16,6 +16,8 @@ public:
 
 	Shader myHoverShader;
 
+	inline void SetOnClick(void(*anOnClick)()) { myOnClick = anOnClick; }
+
 private:
 	UIText myText;
 	UIImage myButtonBackground;
