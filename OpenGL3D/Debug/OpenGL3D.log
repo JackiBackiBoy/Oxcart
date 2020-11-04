@@ -1,10 +1,4 @@
-﻿  GameActions.cpp
-  Sandbox.cpp
-C:\Code\Oxcart\OpenGL3D\src\core\Window.h(20,47): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
-C:\Code\Oxcart\OpenGL3D\src\core\Window.h(21,48): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
-C:\Code\Oxcart\OpenGL3D\src\ui\UIImage.h(21,60): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-C:\Code\Oxcart\OpenGL3D\src\ui\UIImage.h(22,62): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-C:\Code\Oxcart\OpenGL3D\src\Sandbox.cpp(148,57): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-C:\Code\Oxcart\OpenGL3D\src\Sandbox.cpp(149,62): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-  Generating Code...
-  OpenGL3D.vcxproj -> C:\Code\Oxcart\Debug\OpenGL3D.exe
+﻿  Bird.cpp
+C:\Development\Oxcart\OpenGL3D\src\core\Window.h(22,47): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+C:\Development\Oxcart\OpenGL3D\src\core\Window.h(23,48): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+  OpenGL3D.vcxproj -> C:\Development\Oxcart\Debug\OpenGL3D.exe

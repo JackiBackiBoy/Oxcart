@@ -2,18 +2,12 @@
 #include <iostream>
 #include "input/Mouse.h"
 #include "input/Keyboard.h"
+#include "gameobjects/GameObject.h"
+
+Window* Window::CurrentWindow = nullptr;
 
 Window::Window(const std::string& aTitle, const int& aScreenWidth, const int& aScreenHeight)
 	: myTitle(aTitle), myScreenWidth(aScreenWidth), myScreenHeight(aScreenHeight), myRawWindow(nullptr)
-{
-
-}
-
-Window::~Window()
-{
-}
-
-void Window::Run()
 {
 	// Load OpenGL functions
 	if (!glfwInit())
@@ -36,7 +30,15 @@ void Window::Run()
 	{
 		std::cout << "Error: GLEW couldn't be loaded!" << std::endl;
 	}
+}
 
+Window::~Window()
+{
+}
+
+void Window::Run()
+{
+	Window::CurrentWindow = this;
 	Mouse::BindToWindow(myRawWindow);
 
 	float tempLastTime = 0.0f;
@@ -73,7 +75,7 @@ void Window::Run()
 		OnUpdate(tempDeltaTime);
 		Window::OnUpdate(tempDeltaTime);
 
-		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.392f, 0.584f, 0.929f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// OnRender (called every frame)

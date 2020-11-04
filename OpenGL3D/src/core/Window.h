@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include "math/Vector2D.h"
 
+class GameObject;
+
 class Window
 {
 public:
@@ -24,6 +26,8 @@ public:
 	inline GLFWwindow* GetRawWindow() const { return myRawWindow; }
 
 	inline Vector2D GetCenter() const { return { (float)myScreenWidth / 2, (float)myScreenHeight / 2 }; }
+
+	static Window* CurrentWindow;
 
 private:
 	int myFPS;

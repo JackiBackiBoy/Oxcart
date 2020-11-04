@@ -19,6 +19,10 @@
 #include "GameInfo.h"
 #include "GameActions.h"
 
+#include "gameobjects/Bird.h"
+#include "gameobjects/Pipe.h"
+#include "gameobjects/PipeManager.h"
+
 class Sandbox : public Window
 {
 public: 
@@ -47,7 +51,13 @@ public:
 		glfwSwapInterval(0);
 		glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		aModel = Model("res/models/Backpack/backpack.obj", true);
+		aModel = Model("res/models/Flappy Bird/untitled.obj");
+		myWing = Model("res/models/Flappy Bird Wing/flappy_bird_wing.obj");
+		myPipe = Model("res/models/Pipe/pipe.obj");
+
+		PipeManager::PipeModel = myPipe;
+
+		myBird = Bird({ 0, 10, 0 }, 20.0f, 0.045f, { { 0, 10, }, 1, 1 });
 	}
 
 	void OnUpdate(const float& aDeltaTime) override
@@ -70,56 +80,61 @@ public:
 
 			myFOV += -Mouse::GetScrollWheel() * 2.0f;
 
-			// Forward
-			if (Keyboard::IsKeyDown(KeyCode::W, myRawWindow))
-			{
-				myCameraPosition += myCameraFront * 2.0f * aDeltaTime;
-			}
-			// Backward
-			if (Keyboard::IsKeyDown(KeyCode::S, myRawWindow))
-			{
-				myCameraPosition -= myCameraFront * 2.0f * aDeltaTime;
-			}
+			myCameraPosition.y = Math::Lerp(myCameraPosition.y, myBird.Position().y, 0.5f) + 6;
 
-			// Left
-			if (Keyboard::IsKeyDown(KeyCode::A, myRawWindow))
-			{
-				myCameraPosition -= Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
-			}
-			// Right
-			if (Keyboard::IsKeyDown(KeyCode::D, myRawWindow))
-			{
-				myCameraPosition += Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
-			}
+			myBird.OnUpdate(aDeltaTime);
+			PipeManager::Update(aDeltaTime);
 
-			// Up
-			if (Keyboard::IsKeyDown(KeyCode::Space, myRawWindow))
-			{
-				myCameraPosition.y += 2.0f * aDeltaTime;
-			}
-			// Down
-			if (Keyboard::IsKeyDown(KeyCode::LeftControl, myRawWindow))
-			{
-				myCameraPosition.y -= 2.0f * aDeltaTime;
-			}
+			//// Forward
+			//if (Keyboard::IsKeyDown(KeyCode::W, myRawWindow))
+			//{
+			//	myCameraPosition += myCameraFront * 2.0f * aDeltaTime;
+			//}
+			//// Backward
+			//if (Keyboard::IsKeyDown(KeyCode::S, myRawWindow))
+			//{
+			//	myCameraPosition -= myCameraFront * 2.0f * aDeltaTime;
+			//}
 
-			Vector2D tempCurrentMousePosition = Mouse::GetPosition(myRawWindow);
+			//// Left
+			//if (Keyboard::IsKeyDown(KeyCode::A, myRawWindow))
+			//{
+			//	myCameraPosition -= Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
+			//}
+			//// Right
+			//if (Keyboard::IsKeyDown(KeyCode::D, myRawWindow))
+			//{
+			//	myCameraPosition += Vector3D::Normalize(Vector3D::CrossProduct(myCameraFront, myCameraUp)) * 2.0f * aDeltaTime;
+			//}
 
-			float tempDeltaMouseX = tempCurrentMousePosition.x - myLastMousePosition.x;
-			float tempDeltaMouseY = myLastMousePosition.y - tempCurrentMousePosition.y;
-			myLastMousePosition = tempCurrentMousePosition;
+			//// Up
+			//if (Keyboard::IsKeyDown(KeyCode::Space, myRawWindow))
+			//{
+			//	myCameraPosition.y += 2.0f * aDeltaTime;
+			//}
+			//// Down
+			//if (Keyboard::IsKeyDown(KeyCode::LeftControl, myRawWindow))
+			//{
+			//	myCameraPosition.y -= 2.0f * aDeltaTime;
+			//}
 
-			myYaw += tempDeltaMouseX * 0.1f;
-			myPitch += tempDeltaMouseY * 0.1f;
+			//Vector2D tempCurrentMousePosition = Mouse::GetPosition(myRawWindow);
 
-			if (myPitch > 89.0f)
-			{
-				myPitch = 89.0f;
-			}
-			if (myPitch < -89.0f)
-			{
-				myPitch = -89.0f;
-			}
+			//float tempDeltaMouseX = tempCurrentMousePosition.x - myLastMousePosition.x;
+			//float tempDeltaMouseY = myLastMousePosition.y - tempCurrentMousePosition.y;
+			//myLastMousePosition = tempCurrentMousePosition;
+
+			//myYaw += tempDeltaMouseX * 0.1f;
+			//myPitch += tempDeltaMouseY * 0.1f;
+
+			//if (myPitch > 89.0f)
+			//{
+			//	myPitch = 89.0f;
+			//}
+			//if (myPitch < -89.0f)
+			//{
+			//	myPitch = -89.0f;
+			//}
 
 			Vector3D tempDirection;
 			tempDirection.x = cos(Math::ToRadians(myYaw)) * cos(Math::ToRadians(myPitch));
@@ -168,7 +183,8 @@ public:
 
 		// Model Matrix
 		Matrix4x4 tempModelMatrix = Matrix4x4::Identity();
-		tempModelMatrix = Matrix4x4::Rotate(tempModelMatrix, 0.0f, { 1.0f, 1.0f, 1.0f });
+		tempModelMatrix = Matrix4x4::Translate(tempModelMatrix, myBird.Position());
+		tempModelMatrix = Matrix4x4::Rotate(tempModelMatrix, Math::ToRadians(myBird.Rotation().z), { 0.0f, 0.0, 1.0f });
 
 		// View Matrix
 		Matrix4x4 tempViewMatrix;
@@ -184,6 +200,25 @@ public:
 
 		aModel.Render(*myLightingShader);
 
+		// Wing
+		tempModelMatrix = Matrix4x4::Identity();
+		tempModelMatrix = Matrix4x4::Translate(tempModelMatrix, { myBird.Position().x - 1.02f, myBird.Position().y - 0.2f, myBird.Position().z + 0.49f });
+		tempModelMatrix = Matrix4x4::Rotate(tempModelMatrix, Math::ToRadians(myBird.Rotation().z), { 0.0f, 0.0, 1.0f });
+		tempModelMatrix = Matrix4x4::Rotate(tempModelMatrix, Math::ToRadians(myBird.GetWingRotation().x), { 1.0f, 0.0, 0.0f });
+		myLightingShader->SetUniformMatrix4x4("ModelMatrix", tempModelMatrix);
+
+		myWing.Render(*myLightingShader);
+		
+		// Pipe
+		//tempModelMatrix = Matrix4x4::Identity();
+		//tempModelMatrix = Matrix4x4::Scale(tempModelMatrix, { 3, 3, 3 });
+		//tempModelMatrix = Matrix4x4::Translate(tempModelMatrix, myPipeObject.Position());
+		//myLightingShader->SetUniformMatrix4x4("ModelMatrix", tempModelMatrix);
+
+		//myPipe.Render(*myLightingShader);
+
+		PipeManager::Render(*myLightingShader);
+
 		// UI Overlay
 		if (GameInfo::myCurrentGameState == GameState::Paused)
 		{
@@ -198,12 +233,12 @@ public:
 private:
 	Vector2D myLastMousePosition;
 
-	Vector3D myCameraPosition = { 0.0f, 0.0f, 3.0f };
+	Vector3D myCameraPosition = { 10, 10, 13 };
 	Vector3D myCameraUp = { 0.0f, 1.0f, 0.0f };
-	Vector3D myCameraFront = { 0.0f, 0.0f, -1.0f };
+	Vector3D myCameraFront = { -1.0, 0.0f, -1.0f };
 
-	float myPitch;
-	float myYaw = -90.0f;
+	float myPitch = -5;
+	float myYaw = -125;
 	float myRoll;
 	float myFOV;
 
@@ -219,6 +254,10 @@ private:
 	Texture* myTexture;
 	Vector3D myLightPosition = { 1.2f, 1.0f, 2.0f };
 	Model aModel;
+	Model myWing;
+	Model myPipe;
+
+	Bird myBird;
 };
 
 Window* BuildWindow()

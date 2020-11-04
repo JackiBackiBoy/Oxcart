@@ -1,8 +1,8 @@
 #ifndef KEYBOARD_HEADER
 #define KEYBOARD_HEADER
 
+#include "core/Window.h"
 #include "input/KeyCode.h"
-#include <GLFW/glfw3.h>
 #include <unordered_map>
 
 class Keyboard
