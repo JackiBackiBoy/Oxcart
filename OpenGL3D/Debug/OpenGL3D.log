@@ -1,4 +1,0 @@
-﻿  Bird.cpp
-C:\Development\Oxcart\OpenGL3D\src\core\Window.h(22,47): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
-C:\Development\Oxcart\OpenGL3D\src\core\Window.h(23,48): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
-  OpenGL3D.vcxproj -> C:\Development\Oxcart\Debug\OpenGL3D.exe
