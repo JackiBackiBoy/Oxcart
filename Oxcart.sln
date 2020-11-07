@@ -8,7 +8,9 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
+		Debug|x64 = Debug|x64
 		Release|x86 = Release|x86
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3D1DF055-D38B-4188-B3BC-0A61332BA1CA}.Debug|x64.ActiveCfg = Debug|x64
