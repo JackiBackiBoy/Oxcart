@@ -2,8 +2,9 @@
 #define TEXTURE_HEADER
 
 #include <string>
+#include "core/Core.h"
 
-class Texture
+class OX_API Texture
 {
 public:
 	Texture() {};

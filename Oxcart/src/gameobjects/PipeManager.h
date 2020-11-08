@@ -5,7 +5,7 @@
 #include "graphics/Shader.h"
 #include "Pipe.h"
 
-class PipeManager
+class OX_API PipeManager
 {
 public:
 	static void Update(const float& aDeltaTime);

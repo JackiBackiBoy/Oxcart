@@ -2,10 +2,10 @@
 #define SHADER_HEADER
 
 #include <string>
-#include <GL\glew.h>
+#include <GL/glew.h>
 #include "math\Matrix4x4.h"
 
-class Shader
+class OX_API Shader
 {
 public:
 	Shader() {};

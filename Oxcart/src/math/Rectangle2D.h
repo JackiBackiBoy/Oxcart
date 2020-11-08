@@ -3,7 +3,7 @@
 
 #include "Vector2D.h"
 
-class Rectangle2D
+class OX_API Rectangle2D
 {
 public:
 	Rectangle2D() : myPosition({ 0, 0 }), myWidth(0), myHeight(0) {};

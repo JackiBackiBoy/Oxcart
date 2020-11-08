@@ -4,7 +4,7 @@
 #include "Vector3D.h"
 #include <array>
 
-struct Matrix4x4
+struct OX_API Matrix4x4
 {
 	Matrix4x4() {};
 

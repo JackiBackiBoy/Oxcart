@@ -9,7 +9,7 @@
 #include "Character.h"
 #include "graphics/Shader.h"
 
-class UIText : public UIElement
+class OX_API UIText : public UIElement
 {
 public:
 	UIText() : myText(""), myColor{ 0, 0, 0 } {};

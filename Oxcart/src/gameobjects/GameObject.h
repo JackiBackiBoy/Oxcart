@@ -3,7 +3,7 @@
 
 #include "math/Vector3D.h"
 
-class GameObject
+class OX_API GameObject
 {
 public:
 	GameObject(const Vector3D& aPosition) : myPosition(aPosition) {};

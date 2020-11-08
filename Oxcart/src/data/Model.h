@@ -6,7 +6,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-class Model
+class OX_API Model
 {
 public:
 	Model() : myIsFlippedUVs(false) {};

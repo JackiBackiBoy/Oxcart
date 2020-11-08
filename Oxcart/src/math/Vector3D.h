@@ -1,9 +1,10 @@
 #ifndef VECTOR_3D_HEADER
 #define VECTOR_3D_HEADER
 
+#include "core/Core.h"
 #include <cmath>
 
-struct Vector3D
+struct OX_API Vector3D
 {
 	Vector3D() : x(0.0f), y(0.0f), z(0.0f) {};
 	Vector3D(const float& anX, const float& aY, const float& aZ) : x(anX), y(aY), z(aZ) {};

@@ -1,7 +1,9 @@
 #ifndef MATH_HEADER
 #define MATH_HEADER
 
-class Math
+#include "core/Core.h"
+
+class OX_API Math
 {
 public:
 	~Math();

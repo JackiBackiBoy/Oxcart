@@ -5,7 +5,7 @@
 #include "input/KeyCode.h"
 #include <unordered_map>
 
-class Keyboard
+class OX_API Keyboard
 {
 public:
 	~Keyboard();

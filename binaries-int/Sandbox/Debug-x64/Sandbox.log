@@ -1,0 +1,27 @@
+﻿  Sandbox.cpp
+C:\Development\Oxcart\Oxcart\src\core\Window.h(40,21): warning C4251: 'Window::myTitle': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Window'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Development\Oxcart\Oxcart\src\core\Window.h(23,47): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+C:\Development\Oxcart\Oxcart\src\core\Window.h(24,48): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+C:\Development\Oxcart\Oxcart\src\graphics\Shader.h(32,24): warning C4251: 'Shader::myFilePath': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Shader'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Development\Oxcart\Oxcart\src\graphics\Shader.h(33,28): warning C4251: 'Shader::myVertexShader': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Shader'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Development\Oxcart\Oxcart\src\graphics\Shader.h(34,30): warning C4251: 'Shader::myFragmentShader': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Shader'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Development\Oxcart\Oxcart\src\ui\UIText.h(13,1): warning C4275: non dll-interface class 'UIElement' used as base for dll-interface class 'UIText'
+C:\Development\Oxcart\Oxcart\src\ui\UIElement.h(7): message : see declaration of 'UIElement'
+C:\Development\Oxcart\Oxcart\src\ui\UIText.h(12): message : see declaration of 'UIText'
+C:\Development\Oxcart\Oxcart\src\ui\UIText.h(27,20): warning C4251: 'UIText::myText': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'UIText'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Development\Oxcart\Oxcart\src\ui\UIText.h(30,40): warning C4251: 'UIText::myCharacters': class 'std::map<char,Character,std::less<char>,std::allocator<std::pair<const char,Character>>>' needs to have dll-interface to be used by clients of class 'UIText'
+C:\Development\Oxcart\Oxcart\src\ui\UIText.h(30): message : see declaration of 'std::map<char,Character,std::less<char>,std::allocator<std::pair<const char,Character>>>'
+C:\Development\Oxcart\Oxcart\src\ui\UIImage.h(12,1): warning C4275: non dll-interface class 'UIElement' used as base for dll-interface class 'UIImage'
+C:\Development\Oxcart\Oxcart\src\ui\UIElement.h(7): message : see declaration of 'UIElement'
+C:\Development\Oxcart\Oxcart\src\ui\UIImage.h(11): message : see declaration of 'UIImage'
+C:\Development\Oxcart\Oxcart\src\ui\UIImage.h(21,60): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Development\Oxcart\Oxcart\src\ui\UIImage.h(22,62): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Development\Oxcart\Oxcart\src\ui\UIButton.h(10,1): warning C4275: non dll-interface class 'UIElement' used as base for dll-interface class 'UIButton'
+C:\Development\Oxcart\Oxcart\src\ui\UIElement.h(7): message : see declaration of 'UIElement'
+C:\Development\Oxcart\Oxcart\src\ui\UIButton.h(9): message : see declaration of 'UIButton'
+  Sandbox.vcxproj -> C:\Development\Oxcart\binaries\Sandbox\Debug-x64\Sandbox.exe

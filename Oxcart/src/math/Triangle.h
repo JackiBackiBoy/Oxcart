@@ -3,7 +3,7 @@
 
 #include "Vector3D.h"
 
-struct Triangle
+struct OX_API Triangle
 {
 	Triangle() {};
 

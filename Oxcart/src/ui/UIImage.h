@@ -8,7 +8,7 @@
 #include "math/Vector2D.h"
 #include <array>
 
-class UIImage : public UIElement
+class OX_API UIImage : public UIElement
 {
 public:
 	UIImage() : myVAO(0), myVBO(0), myEBO(0), myScale({ 1, 1 }), myVertices({ 0.0f }), myIndices({ 0 }), UIElement({ 0, 0 }) {};

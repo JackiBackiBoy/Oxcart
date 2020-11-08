@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include <data/Model.h>
 
-class Pipe : public GameObject
+class OX_API Pipe : public GameObject
 {
 public:
 	Pipe() : GameObject({ 0, 0, 0 }) {};

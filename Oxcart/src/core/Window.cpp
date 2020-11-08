@@ -4,6 +4,12 @@
 #include "input/Keyboard.h"
 #include "gameobjects/GameObject.h"
 
+void Window::SetVSync(const bool& anIsEnabled)
+{
+	myIsVSync = anIsEnabled;
+	glfwSwapInterval(myIsVSync);
+}
+
 Window* Window::CurrentWindow = nullptr;
 
 Window::Window(const std::string& aTitle, const int& aScreenWidth, const int& aScreenHeight)

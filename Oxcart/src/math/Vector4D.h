@@ -1,7 +1,9 @@
 #ifndef VECTOR_4D_HEADER
 #define VECTOR_4D_HEADER
 
-struct Vector4D
+#include "core/Core.h"
+
+struct OX_API Vector4D
 {
 public:
 	Vector4D() : x(0.0f), y(0.0f), z(0.0f), w(0.0f) {};

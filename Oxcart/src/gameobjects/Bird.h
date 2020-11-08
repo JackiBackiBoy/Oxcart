@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "math/Rectangle2D.h"
 
-class Bird : public GameObject
+class OX_API Bird : public GameObject
 {
 public:
 	Bird() : myJumpForce(0), myGravityForce(0), myAllowJump(true), myHitbox({ 0, 0 }, 0, 0), myWingRotation(0, 0, 0), GameObject({ 0, 0, 0 }) {};

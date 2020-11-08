@@ -1,6 +1,7 @@
 #ifndef WINDOW_HEADER
 #define WINDOW_HEADER
 
+#include "Core.h"
 #include <string>
 #include "GL/glew.h"
 #include <GLFW/glfw3.h>
@@ -8,7 +9,7 @@
 
 class GameObject;
 
-class Window
+class OX_API Window
 {
 public:
 	Window(const std::string& aTitle, const int& aScreenWidth, const int& aScreenHeight);
@@ -27,10 +28,13 @@ public:
 
 	inline Vector2D GetCenter() const { return { (float)myScreenWidth / 2, (float)myScreenHeight / 2 }; }
 
+	void SetVSync(const bool& anIsEnabled);
+
 	static Window* CurrentWindow;
 
 private:
 	int myFPS;
+	bool myIsVSync;
 
 protected:
 	std::string myTitle;

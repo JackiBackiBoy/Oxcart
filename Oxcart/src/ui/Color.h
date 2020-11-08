@@ -3,7 +3,7 @@
 
 #include "math/Vector4D.h"
 
-struct Color
+struct OX_API Color
 {
 public:
 	Color() : r(0), g(0), b(0), a(0) {};

@@ -5,7 +5,7 @@
 #include "math/Vector2D.h"
 #include "GLFW/glfw3.h"
 
-class Mouse
+class OX_API Mouse
 {
 public:
 	~Mouse();

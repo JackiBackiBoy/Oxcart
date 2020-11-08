@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\math\Vector4D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -40,9 +37,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\components\Camera.cpp">
@@ -100,12 +94,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\math\Rectangle2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameActions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\gameobjects\Bird.cpp">
@@ -1055,15 +1043,6 @@
     <ClInclude Include="src\math\Rectangle2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameActions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\gameobjects\Bird.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1074,6 +1053,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gameobjects\PipeManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

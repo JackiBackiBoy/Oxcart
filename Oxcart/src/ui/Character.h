@@ -1,7 +1,9 @@
 #ifndef CHARACTER_HEADER
 #define CHARACTER_HEADER
 
-struct Character
+#include "core/Window.h"
+
+struct OX_API Character
 {
 	unsigned int textureID;
 	int sizeX;

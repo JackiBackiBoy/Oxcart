@@ -6,7 +6,7 @@
 #include "Color.h"
 #include "math/Rectangle2D.h"
 
-class UIButton : public UIElement
+class OX_API UIButton : public UIElement
 {
 public:
 	UIButton() : myRectangle({ { 0, 0 }, 0, 0 }) {};
