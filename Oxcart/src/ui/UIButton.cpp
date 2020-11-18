@@ -32,14 +32,17 @@ void UIButton::Render(Window& aWindow)
 		myOnClick();
 	}
 
-	myPosition = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
+	//myPosition = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
 	myRectangle.Position() = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
 
-	myButtonBackground.Position() = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
+	myButtonBackground.Position() = myPosition;
+	//aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2)
 	myButtonBackground.Render(aWindow);
 
 	//myText.Position() = { myPosition.x + (float)myRectangle.GetWidth() / 2 - myText.GetTextWidth() / 2, myPosition.y + (float)myRectangle.GetHeight() / 2 - myText.GetTextHeight() / 2 };
-	myText.Position() = aWindow.GetCenter() - Vector2D(myText.GetTextWidth() / 2, myText.GetTextHeight() / 2);
+	myText.Position() = myPosition;
+
+	//aWindow.GetCenter() - Vector2D(myText.GetTextWidth() / 2, myText.GetTextHeight() / 2)
 	myText.Render(aWindow);
 
 	// Show hover effect

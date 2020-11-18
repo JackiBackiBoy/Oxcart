@@ -219,6 +219,7 @@
     <ClInclude Include="src\math\Vector2D.h" />
     <ClInclude Include="src\math\Vector3D.h" />
     <ClInclude Include="src\math\Vector4D.h" />
+    <ClInclude Include="src\Oxcart.h" />
     <ClInclude Include="src\ui\Character.h" />
     <ClInclude Include="src\ui\Color.h" />
     <ClInclude Include="src\input\MouseButton.h" />

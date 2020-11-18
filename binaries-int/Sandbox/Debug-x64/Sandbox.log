@@ -1,10 +1,4 @@
 ﻿  Sandbox.cpp
-C:\Code\Oxcart\Oxcart\src\core\Window.h(40,21): warning C4251: 'Window::myTitle': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Window'
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-C:\Code\Oxcart\Oxcart\src\core\Window.h(23,47): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
-C:\Code\Oxcart\Oxcart\src\core\Window.h(24,48): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
-C:\Code\Oxcart\Oxcart\src\input\Keyboard.h(21,50): warning C4251: 'Keyboard::myKeyStates': class 'std::unordered_map<int,bool,std::hash<int>,std::equal_to<int>,std::allocator<std::pair<const int,bool>>>' needs to have dll-interface to be used by clients of class 'Keyboard'
-C:\Code\Oxcart\Oxcart\src\input\Keyboard.h(21): message : see declaration of 'std::unordered_map<int,bool,std::hash<int>,std::equal_to<int>,std::allocator<std::pair<const int,bool>>>'
 C:\Code\Oxcart\Oxcart\src\data\Texture2D.h(12,18): warning C4251: 'Texture2D::type': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'Texture2D'
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
 C:\Code\Oxcart\Oxcart\src\data\Texture2D.h(13,18): warning C4251: 'Texture2D::path': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of struct 'Texture2D'
@@ -29,6 +23,12 @@ C:\Code\Oxcart\Oxcart\src\data\Model.h(21,41): warning C4251: 'Model::myLoadedTe
 C:\Code\Oxcart\Oxcart\src\data\Mesh.h(14): message : see declaration of 'std::vector<Texture2D,std::allocator<Texture2D>>'
 C:\Code\Oxcart\Oxcart\src\gameobjects\PipeManager.h(19,34): warning C4251: 'PipeManager::myPipes': class 'std::vector<Pipe,std::allocator<Pipe>>' needs to have dll-interface to be used by clients of class 'PipeManager'
 C:\Code\Oxcart\Oxcart\src\gameobjects\PipeManager.h(19): message : see declaration of 'std::vector<Pipe,std::allocator<Pipe>>'
+C:\Code\Oxcart\Oxcart\src\core\Window.h(44,21): warning C4251: 'Window::myTitle': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'Window'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Code\Oxcart\Oxcart\src\core\Window.h(27,47): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+C:\Code\Oxcart\Oxcart\src\core\Window.h(28,48): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+C:\Code\Oxcart\Oxcart\src\input\Keyboard.h(21,50): warning C4251: 'Keyboard::myKeyStates': class 'std::unordered_map<int,bool,std::hash<int>,std::equal_to<int>,std::allocator<std::pair<const int,bool>>>' needs to have dll-interface to be used by clients of class 'Keyboard'
+C:\Code\Oxcart\Oxcart\src\input\Keyboard.h(21): message : see declaration of 'std::unordered_map<int,bool,std::hash<int>,std::equal_to<int>,std::allocator<std::pair<const int,bool>>>'
 C:\Code\Oxcart\Oxcart\src\ui\UIText.h(13,1): warning C4275: non dll-interface class 'UIElement' used as base for dll-interface class 'UIText'
 C:\Code\Oxcart\Oxcart\src\ui\UIElement.h(7): message : see declaration of 'UIElement'
 C:\Code\Oxcart\Oxcart\src\ui\UIText.h(12): message : see declaration of 'UIText'
@@ -44,6 +44,6 @@ C:\Code\Oxcart\Oxcart\src\ui\UIImage.h(22,62): warning C4244: 'return': conversi
 C:\Code\Oxcart\Oxcart\src\ui\UIButton.h(10,1): warning C4275: non dll-interface class 'UIElement' used as base for dll-interface class 'UIButton'
 C:\Code\Oxcart\Oxcart\src\ui\UIElement.h(7): message : see declaration of 'UIElement'
 C:\Code\Oxcart\Oxcart\src\ui\UIButton.h(9): message : see declaration of 'UIButton'
-C:\Code\Oxcart\Sandbox\source\Sandbox.cpp(165,57): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
-C:\Code\Oxcart\Sandbox\source\Sandbox.cpp(166,62): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+C:\Code\Oxcart\Sandbox\source\Sandbox.cpp(148,57): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+C:\Code\Oxcart\Sandbox\source\Sandbox.cpp(149,62): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
   Sandbox.vcxproj -> C:\Code\Oxcart\binaries\Sandbox\Debug-x64\Sandbox.exe

@@ -25,7 +25,7 @@ UIText::UIText(const std::string& someText, const Vector2D& aPosition, const Col
 	}
 
 	FT_Face tempFace;
-	if (FT_New_Face(tempFT, "res/fonts/comic.ttf", 0, &tempFace))
+	if (FT_New_Face(tempFT, "res/fonts/arial.ttf", 0, &tempFace))
 	{
 		std::cout << "Error (Freetype): Could not load the desired font." << std::endl;
 		exit(-1);

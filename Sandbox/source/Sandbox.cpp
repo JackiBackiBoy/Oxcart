@@ -1,29 +1,11 @@
-//#include "core/Window.h"
-//#include "components/Camera.h"
-#include "math/Math.h"
-//#include "math/Vector2D.h"
-#include "math/Matrix4x4.h"
-
-#include "input/Keyboard.h"
-#include "input/Mouse.h"
-
-//#include "ui/UIText.h"
-//#include "ui/UIImage.h"
-//#include "ui/UIButton.h"
-//
-//#include "graphics/Shader.h"
-//
-#include "data/Model.h"
-
 #include <iostream>
 #include "GameInfo.h"
 #include "GameActions.h"
-
 #include "gameobjects/Bird.h"
 #include "gameobjects/Pipe.h"
 #include "gameobjects/PipeManager.h"
 
-#include "Main.h"
+#include "Oxcart.h"
 
 class Sandbox : public Window
 {
@@ -44,6 +26,7 @@ public:
 		myImage = new UIImage(*myTexture, { 0, 0 });
 		myImage->myShader = *myUIImageShader;
 
+		myFileButton = UIButton("File", { 0, 0 }, 80, 80, { 0, 0, 0 }, { 255, 255, 255 });
 		myButton = new UIButton("Play", { 100, 100 }, 300, 100, { 255, 255, 255 }, { 120, 100, 0 });
 		myButton->myHoverShader = Shader("res/shaders/HoverShader.glsl");
 		myButton->SetOnClick(GameActions::ContinueGame);
@@ -59,7 +42,7 @@ public:
 
 		PipeManager::PipeModel = myPipe;
 
-		myBird = Bird({ 0, 10, 0 }, 20.0f, 0.045f, { { 0, 10, }, 1, 1 });
+		myBird = Bird({ 0, 10, 0 }, 20.0f, 0.1f, { { 0, 10, }, 1, 1 });
 	}
 
 	void OnUpdate(const float& aDeltaTime) override
@@ -78,7 +61,7 @@ public:
 
 		if (GameInfo::myCurrentGameState == GameState::Playing)
 		{
-			//glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			HideMouse();
 
 			myFOV += -Mouse::GetScrollWheel() * 2.0f;
 
@@ -146,7 +129,7 @@ public:
 		}
 		else if (GameInfo::myCurrentGameState == GameState::Paused)
 		{
-			//glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			ShowMouse();
 		}
 	}
 
@@ -221,15 +204,16 @@ public:
 
 		PipeManager::Render(*myLightingShader);
 
-		//// UI Overlay
-		//if (GameInfo::myCurrentGameState == GameState::Paused)
-		//{
-		//	glDisable(GL_DEPTH_TEST);
+		// UI Overlay
+		if (GameInfo::myCurrentGameState == GameState::Paused)
+		{
+			SetDepthTest(false);
 
-		//	myButton->Render(*this);
+			myButton->Render(*this);
+			myFileButton.Render(*this);
 
-		//	glEnable(GL_DEPTH_TEST);
-		//}
+			SetDepthTest(true);
+		}
 	}
 
 private:
@@ -248,6 +232,7 @@ private:
 
 	UIText* myText;
 	UIButton* myButton;
+	UIButton myFileButton;
 
 	Shader* myLightingShader;
 	Shader* myLightCubeShader;

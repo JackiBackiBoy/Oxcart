@@ -15,6 +15,10 @@ public:
 	Window(const std::string& aTitle, const int& aScreenWidth, const int& aScreenHeight);
 	virtual ~Window();
 
+	void SetDepthTest(const bool& anIsEnabled) const { anIsEnabled ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST); }
+	void ShowMouse() const { glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }
+	void HideMouse() const { glfwSetInputMode(myRawWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED); }
+
 	void Run();
 	virtual void OnStart() = 0;
 	virtual void OnUpdate(const float& aDeltaTime) = 0;
