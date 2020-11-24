@@ -1,6 +1,7 @@
 #shader vertex
 #version 330 core
 layout (location = 0) in vec4 aVertex;
+
 out vec2 TexCoords;
 
 uniform mat4 ProjectionMatrix;
@@ -21,6 +22,6 @@ uniform vec4 TextColor;
 
 void main()
 {
-	vec4 tempSampled = vec4(1.0, 1.0, 1.0, texture2D(Text, TexCoords).r);
+	vec4 tempSampled = vec4(1.0, 1.0, 1.0, texture(Text, TexCoords).r);
 	FragColor = TextColor * tempSampled;
 }

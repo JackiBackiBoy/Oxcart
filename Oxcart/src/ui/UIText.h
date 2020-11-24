@@ -12,14 +12,16 @@
 class OX_API UIText : public UIElement
 {
 public:
-	UIText() : myText(""), myColor{ 0, 0, 0 } {};
+	UIText() : myText(""), myColor{ 0, 0, 0 }, myScale({ 1, 1 }) {};
 	UIText(const std::string& someText, const Vector2D& aPosition, const Color& aColor);
 
 	inline std::string& Text() { return myText; }
 	inline Color& AccessColor() { return myColor; }
 
-	inline int GetTextWidth() const { return myTextWidth; }
-	inline int GetTextHeight() const { return myTextHeight; }
+	int GetTextWidth();
+	int GetTextHeight();
+
+	Vector2D& Scale();
 
 	void Render(Window& aWindow) override;
 
@@ -31,6 +33,7 @@ private:
 	int myLargestCharacterSize;
 	int myTextWidth;
 	int myTextHeight;
+	Vector2D myScale;
 
 	Shader myGlyphShader;
 

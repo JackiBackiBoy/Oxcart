@@ -4,9 +4,11 @@
 #include "GL/glew.h"
 #include "ft2build.h"
 #include FT_FREETYPE_H
+#include "freetype/ftlcdfil.h"
+
 
 UIText::UIText(const std::string& someText, const Vector2D& aPosition, const Color& aColor)
-	: myText(someText), myColor(aColor), UIElement(aPosition)
+	: myText(someText), myColor(aColor), myScale({ 1, 1 }), UIElement(aPosition)
 {
 	glGenVertexArrays(1, &myVAO);
 	glGenBuffers(1, &myVBO);
@@ -25,14 +27,15 @@ UIText::UIText(const std::string& someText, const Vector2D& aPosition, const Col
 	}
 
 	FT_Face tempFace;
-	if (FT_New_Face(tempFT, "res/fonts/arial.ttf", 0, &tempFace))
+	if (FT_New_Face(tempFT, "res/fonts/segoeui.ttf", 0, &tempFace))
 	{
 		std::cout << "Error (Freetype): Could not load the desired font." << std::endl;
 		exit(-1);
 	}
 	else
 	{
-		FT_Set_Pixel_Sizes(tempFace, 0, 60);
+		FT_Set_Pixel_Sizes(tempFace, 0, 10);
+		FT_Library_SetLcdFilter(tempFT, FT_LcdFilter::FT_LCD_FILTER_DEFAULT);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -71,8 +74,25 @@ UIText::UIText(const std::string& someText, const Vector2D& aPosition, const Col
 	FT_Done_FreeType(tempFT);
 }
 
+int UIText::GetTextWidth()
+{
+	return myTextWidth;
+}
+
+int UIText::GetTextHeight()
+{
+	return myLargestCharacterSize;
+}
+
+Vector2D& UIText::Scale()
+{
+	return myScale;
+}
+
 void UIText::Render(Window& aWindow)
 {
+	//glBlendFunc(GL_SRC1_COLOR, GL_ONE_MINUS_SRC1_COLOR);
+
 	// Font rendering
 	glUseProgram(myGlyphShader.GetID());
 	Matrix4x4 tempProjectionMatrix = Matrix4x4::Ortographic(0.0f, aWindow.GetScreenWidth(), aWindow.GetScreenHeight(), 0.0f);
@@ -96,22 +116,22 @@ void UIText::Render(Window& aWindow)
 
 	int tempX = (int)myPosition.x;
 	int tempY = (int)myPosition.y;
-	float tempScale = 1.0f;
 
 	myTextWidth = 0;
+	myTextHeight = 0;
 
 	for (tempIterator = myText.begin(); tempIterator != myText.end(); tempIterator++)
 	{
 		Character tempCharacter = myCharacters[*tempIterator];
 
-		float tempXPosition = tempX + tempCharacter.bearingX * tempScale;
-		float tempYPosition = tempY + myLargestCharacterSize - tempCharacter.bearingY;
+		float tempXPosition = tempX - tempCharacter.bearingX * myScale.x;
+		float tempYPosition = tempY + myLargestCharacterSize * myScale.y - tempCharacter.bearingY * myScale.y;
 
-		float tempWidth = tempCharacter.sizeX * tempScale;
-		float tempHeight = tempCharacter.sizeY * tempScale;
+		float tempWidth = tempCharacter.sizeX * myScale.x;
+		float tempHeight = tempCharacter.sizeY * myScale.y;
 
-		myTextWidth += (tempCharacter.advanceOffset >> 6) * tempScale;
-		myTextHeight = tempHeight > myTextHeight ? tempHeight : myTextHeight;
+		myTextWidth += (tempCharacter.advanceOffset >> 6) * myScale.x;
+		myTextHeight = tempHeight * myScale.y;
 
 		float tempVertices[6][4] =
 		{
@@ -136,7 +156,7 @@ void UIText::Render(Window& aWindow)
 		// bitshift trick to get value in pixels (2^6 = 64)
 		// this is done because the advance number is number of
 		// 1/64 pixels.
-		tempX += (tempCharacter.advanceOffset >> 6) * tempScale;
+		tempX += (tempCharacter.advanceOffset >> 6) * myScale.x;
 	}
 
 	glBindVertexArray(0);

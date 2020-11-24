@@ -18,6 +18,7 @@ public:
 		myLightingShader = new Shader("res/shaders/LightingShader.glsl");
 		myLightCubeShader = new Shader("res/shaders/LightCubeShader.glsl");
 		myUIImageShader = new Shader("res/shaders/UIImageShader.glsl");
+		tempHoverShader = new Shader("res/shaders/HoverShader.glsl");
 		
 		myText = new UIText("Beep beep boop", { 10, 10 }, { 255, 255, 255 });
 		myFOV = 70.0f;
@@ -26,9 +27,12 @@ public:
 		myImage = new UIImage(*myTexture, { 0, 0 });
 		myImage->myShader = *myUIImageShader;
 
-		myFileButton = UIButton("File", { 0, 0 }, 80, 80, { 0, 0, 0 }, { 255, 255, 255 });
+		myFileButton = UIButton("Arkiv", { 0, 0 }, 100, 9, { 0, 0, 0 }, { 255, 255, 255 });
+		myFileButton.myHoverShader = *tempHoverShader;
+		myFileButton.SetOnClick(GameActions::ContinueGame);
+
 		myButton = new UIButton("Play", { 100, 100 }, 300, 100, { 255, 255, 255 }, { 120, 100, 0 });
-		myButton->myHoverShader = Shader("res/shaders/HoverShader.glsl");
+		myButton->myHoverShader = *tempHoverShader;
 		myButton->SetOnClick(GameActions::ContinueGame);
 
 		//glEnable(GL_DEPTH_TEST);
@@ -39,10 +43,11 @@ public:
 		aModel = Model("res/models/Flappy Bird/untitled.obj");
 		myWing = Model("res/models/Flappy Bird Wing/flappy_bird_wing.obj");
 		myPipe = Model("res/models/Pipe/pipe.obj");
+		myNanoSuit = Model("res/models/Nanosuit/nanosuit.obj");
 
 		PipeManager::PipeModel = myPipe;
 
-		myBird = Bird({ 0, 10, 0 }, 20.0f, 0.1f, { { 0, 10, }, 1, 1 });
+		myBird = Bird({ 0, 10, 0 }, 30.0f, 0.1f, { { 0, 10, }, 1, 1 });
 	}
 
 	void OnUpdate(const float& aDeltaTime) override
@@ -209,11 +214,13 @@ public:
 		{
 			SetDepthTest(false);
 
-			myButton->Render(*this);
+			//myButton->Render(*this);
 			myFileButton.Render(*this);
 
 			SetDepthTest(true);
 		}
+
+		//myNanoSuit.Render(*myLightingShader);
 	}
 
 private:
@@ -237,12 +244,14 @@ private:
 	Shader* myLightingShader;
 	Shader* myLightCubeShader;
 	Shader* myUIImageShader;
+	Shader* tempHoverShader;
 
 	Texture* myTexture;
 	Vector3D myLightPosition = { 1.2f, 1.0f, 2.0f };
 	Model aModel;
 	Model myWing;
 	Model myPipe;
+	Model myNanoSuit;
 
 	Bird myBird;
 };

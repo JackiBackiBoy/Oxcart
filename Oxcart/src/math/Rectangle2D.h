@@ -13,8 +13,8 @@ public:
 	bool Intersects(const Rectangle2D& aRectangle);
 	bool Contains(const Vector2D& aPoint);
 
-	inline int GetWidth() const { return myWidth; }
-	inline int GetHeight() const { return myHeight; }
+	int GetWidth();
+	int GetHeight();
 	inline Vector2D& Position() { return myPosition; }
 
 private:

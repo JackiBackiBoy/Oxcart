@@ -25,3 +25,13 @@ bool Rectangle2D::Contains(const Vector2D& aPoint)
 
 	return false;
 }
+
+int Rectangle2D::GetWidth()
+{
+	return myWidth;
+}
+
+int Rectangle2D::GetHeight()
+{
+	return myHeight;
+}

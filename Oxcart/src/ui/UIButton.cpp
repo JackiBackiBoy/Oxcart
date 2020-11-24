@@ -3,7 +3,7 @@
 #include <iostream>
 
 UIButton::UIButton(const std::string& aText, const Vector2D& aPosition, const int& aWidth, const int& aHeight, const Color& aTextColor, const Color& aButtonColor)
-	: myRectangle(aPosition, aWidth, aHeight), UIElement(aPosition)
+	: myRectangle({ aPosition, aWidth, aHeight }), UIElement(aPosition)
 {
 	myButtonBackground = UIImage(Texture("res/textures/pixel.png"), aPosition, { (float)myRectangle.GetWidth(), (float)myRectangle.GetHeight() }, aButtonColor);
 	myButtonBackground.myShader = Shader("res/shaders/UIImageShader.glsl");
@@ -33,16 +33,22 @@ void UIButton::Render(Window& aWindow)
 	}
 
 	//myPosition = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
-	myRectangle.Position() = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
+	myPosition = { 0, 0 };
+	//myRectangle.Position() = aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2);
+	myRectangle.Position() = myPosition;
 
 	myButtonBackground.Position() = myPosition;
 	//aWindow.GetCenter() - Vector2D(myRectangle.GetWidth() / 2, myRectangle.GetHeight() / 2)
 	myButtonBackground.Render(aWindow);
 
 	//myText.Position() = { myPosition.x + (float)myRectangle.GetWidth() / 2 - myText.GetTextWidth() / 2, myPosition.y + (float)myRectangle.GetHeight() / 2 - myText.GetTextHeight() / 2 };
-	myText.Position() = myPosition;
 
-	//aWindow.GetCenter() - Vector2D(myText.GetTextWidth() / 2, myText.GetTextHeight() / 2)
+	// Calculate the correct scale for the font to fit inside the button box
+	float tempAdjustedScale = (float)myRectangle.GetHeight() / myText.GetTextHeight();
+	myText.Scale() = { tempAdjustedScale, tempAdjustedScale };
+
+	myText.Position() = { myPosition.x + myRectangle.GetWidth() / 2 - myText.GetTextWidth() / 2, myPosition.y };
+
 	myText.Render(aWindow);
 
 	// Show hover effect
